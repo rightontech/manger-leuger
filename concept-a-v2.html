@@ -1,0 +1,1158 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clara Leuger — Manger Leuger</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,700&family=Barlow:wght@600&family=Barlow+Condensed:wght@800&family=DM+Sans:ital,wght@0,400;1,400&display=swap");
+
+      :root {
+        --bg: #f0ebe3;
+        --surface: #e8e1d7;
+        --white: #fafaf7;
+        --accent: #e0281a;
+        --text: #111111;
+        --muted: #666057;
+        --red: #c0392b;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "DM Sans", sans-serif;
+        font-weight: 400;
+        overflow-x: hidden;
+        line-height: 1.6;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0.02;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      }
+
+      /* ─── NAV ─── */
+      #main-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 2rem;
+        transition:
+          background 0.3s,
+          border-bottom 0.3s;
+      }
+
+      #main-nav.scrolled {
+        background: var(--bg);
+        border-bottom: 1px solid rgba(224, 40, 26, 0.2);
+      }
+
+      .nav-logo {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-weight: 700;
+        font-size: 24px;
+        color: var(--accent);
+        text-decoration: none;
+        letter-spacing: 0.04em;
+      }
+
+      .nav-lang {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .nav-lang span {
+        color: var(--muted);
+        font-family: "Barlow", sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .lang-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: "Barlow", sans-serif;
+        font-weight: 600;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        padding: 4px 6px;
+        transition: color 0.2s;
+        color: var(--muted);
+      }
+
+      .lang-btn.active {
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      /* ─── HERO ─── */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 7rem 2rem 4rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        align-items: center;
+      }
+
+      .hero-text {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        width: 100%;
+      }
+
+      .hero-label {
+        font-family: "Barlow", sans-serif;
+        font-weight: 600;
+        font-size: 11px;
+        color: var(--accent);
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+      }
+
+      .hero-name {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-weight: 700;
+        font-size: 52px;
+        color: var(--text);
+        line-height: 1.05;
+      }
+
+      .hero-handle {
+        font-family: "Barlow", sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+        color: var(--accent);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      .hero-tagline {
+        font-family: "DM Sans", sans-serif;
+        font-style: italic;
+        font-size: 20px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .hero-cta {
+        display: inline-block;
+        border: none;
+        background: var(--accent);
+        color: #fafaf7;
+        font-family: "Barlow", sans-serif;
+        font-weight: 600;
+        font-size: 13px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 14px 32px;
+        transition: background 0.3s;
+        align-self: flex-start;
+      }
+
+      .hero-cta:hover {
+        background: #b01f15;
+        color: #fafaf7;
+      }
+
+      .hero-art {
+        width: 100%;
+        max-width: 420px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .hero-blob {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        background: var(--accent);
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.05;
+        pointer-events: none;
+      }
+
+      .hero-blob-1 {
+        top: 10%;
+        left: 10%;
+      }
+
+      .hero-blob-2 {
+        bottom: 10%;
+        right: 10%;
+      }
+
+      .hero-svg {
+        width: 100%;
+        max-width: 420px;
+        height: auto;
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      #arc-spinner {
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: spin 25s linear infinite;
+      }
+
+      @media (min-width: 768px) {
+        .hero-inner {
+          flex-direction: row;
+          align-items: center;
+        }
+
+        .hero-text {
+          flex: 0 0 55%;
+        }
+
+        .hero-art {
+          flex: 0 0 45%;
+          max-width: none;
+        }
+
+        .hero-name {
+          font-size: 96px;
+        }
+      }
+
+      /* ─── SECTIONS SHARED ─── */
+      section {
+        padding: 5rem 2rem;
+      }
+
+      .section-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+
+      .section-heading {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-weight: 700;
+        font-size: 40px;
+        color: var(--text);
+        line-height: 1.1;
+        margin-bottom: 3rem;
+      }
+
+      @media (min-width: 768px) {
+        .section-heading {
+          font-size: 52px;
+        }
+      }
+
+      /* ─── WHO IS CLARA ─── */
+      .who-section {
+        border-top: none;
+      }
+
+      .who-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .stat-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+
+      .stat-number {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 800;
+        font-size: 48px;
+        color: var(--accent);
+        line-height: 1;
+      }
+
+      @media (min-width: 768px) {
+        .stat-number {
+          font-size: 56px;
+        }
+      }
+
+      .stat-label {
+        font-family: "DM Sans", sans-serif;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .bio-text {
+        font-family: "DM Sans", sans-serif;
+        font-size: 16px;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      @media (min-width: 768px) {
+        .who-inner {
+          flex-direction: row;
+          align-items: flex-start;
+          gap: 5rem;
+        }
+
+        .stats-grid {
+          flex: 0 0 auto;
+          width: 340px;
+        }
+
+        .bio-text {
+          flex: 1;
+          padding-top: 0.5rem;
+        }
+      }
+
+      /* ─── WHAT I CREATE ─── */
+      .create-section {
+        background: var(--surface);
+        border-top: 2px solid var(--accent);
+      }
+
+      .cards-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      @media (min-width: 768px) {
+        .cards-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .card {
+        border-top: 2px solid var(--accent);
+        background: transparent;
+        padding: 2rem;
+      }
+
+      @media (min-width: 768px) {
+        .card {
+          border-top: 2px solid var(--accent);
+          border-left: none;
+        }
+
+        .card:not(:first-child) {
+          border-left: 1px solid rgba(224, 40, 26, 0.15);
+        }
+      }
+
+      .card-title {
+        font-family: "Barlow", sans-serif;
+        font-weight: 600;
+        font-size: 12px;
+        color: var(--accent);
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+      }
+
+      .card-body {
+        font-family: "DM Sans", sans-serif;
+        font-size: 15px;
+        color: var(--muted);
+        line-height: 1.75;
+      }
+
+      /* ─── HOW WE WORK ─── */
+      .how-section {
+        border-top: 1px solid var(--accent);
+        text-align: center;
+      }
+
+      .how-inner {
+        max-width: 680px;
+        margin: 0 auto;
+      }
+
+      .how-body {
+        font-family: "DM Sans", sans-serif;
+        font-size: 16px;
+        color: var(--muted);
+        line-height: 1.8;
+        margin-bottom: 2rem;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .tag {
+        display: inline-block;
+        border: 1px solid rgba(224, 40, 26, 0.25);
+        padding: 6px 14px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      /* ─── MARQUEE ─── */
+      .marquee-strip {
+        background: #e0281a;
+        height: 52px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+      }
+
+      .marquee-track {
+        display: flex;
+        white-space: nowrap;
+        animation: marquee 30s linear infinite;
+      }
+
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      .marquee-track span {
+        font-family: "Barlow", sans-serif;
+        font-weight: 600;
+        font-size: 11px;
+        color: #ffffff;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        padding-right: 0;
+      }
+
+      /* ─── CONTACT ─── */
+      #contact {
+        text-align: center;
+        padding: 6rem 2rem;
+      }
+
+      .contact-inner {
+        max-width: 560px;
+        margin: 0 auto;
+      }
+
+      .contact-heading {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-weight: 700;
+        font-size: 56px;
+        color: var(--text);
+        margin-bottom: 1.5rem;
+        line-height: 1.05;
+      }
+
+      @media (min-width: 768px) {
+        .contact-heading {
+          font-size: 72px;
+        }
+      }
+
+      .contact-body {
+        font-family: "DM Sans", sans-serif;
+        font-size: 16px;
+        color: var(--muted);
+        line-height: 1.8;
+        margin-bottom: 0;
+      }
+
+      .contact-email {
+        font-family: "Barlow", sans-serif;
+        font-weight: 600;
+        font-size: 20px;
+        color: var(--accent);
+        display: block;
+        margin: 2rem auto;
+      }
+
+      .social-row {
+        display: inline-flex;
+        gap: 1.5rem;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .social-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.2s;
+      }
+
+      .social-link:hover {
+        opacity: 0.6;
+      }
+
+      .social-link svg {
+        width: 24px;
+        height: 24px;
+        stroke: var(--accent);
+        fill: none;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* ─── FOOTER ─── */
+      footer {
+        border-top: 1px solid rgba(224, 40, 26, 0.2);
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: center;
+        text-align: center;
+      }
+
+      @media (min-width: 640px) {
+        footer {
+          flex-direction: row;
+          justify-content: space-between;
+          text-align: left;
+        }
+      }
+
+      .footer-copy {
+        font-family: "DM Sans", sans-serif;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .footer-brand {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav id="main-nav">
+      <a class="nav-logo" href="#">ML</a>
+      <div class="nav-lang">
+        <button id="btn-fr" class="lang-btn active" aria-label="Français">
+          FR
+        </button>
+        <span>|</span>
+        <button id="btn-en" class="lang-btn" aria-label="English">EN</button>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <p class="hero-label gsap-hero-item">
+            <span
+              data-fr="PARIS · FOOD &amp; LIFESTYLE"
+              data-en="PARIS · FOOD &amp; LIFESTYLE"
+              >PARIS · FOOD &amp; LIFESTYLE</span
+            >
+          </p>
+          <h1 class="hero-name gsap-hero-item">Clara Leuger</h1>
+          <p class="hero-handle gsap-hero-item">Manger Leuger</p>
+          <p class="hero-tagline gsap-hero-item">
+            <span
+              data-fr="Je mange. Je raconte. Je transporte."
+              data-en="I eat. I write. I transport you."
+              >Je mange. Je raconte. Je transporte.</span
+            >
+          </p>
+          <a href="#contact" class="hero-cta gsap-hero-item">
+            <span data-fr="Travaillons ensemble" data-en="Let's work together"
+              >Travaillons ensemble</span
+            >
+          </a>
+        </div>
+
+        <div class="hero-art gsap-hero-item">
+          <div class="hero-blob hero-blob-1"></div>
+          <div class="hero-blob hero-blob-2"></div>
+          <svg
+            class="hero-svg"
+            viewBox="0 0 480 480"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <rect width="480" height="480" fill="#f0ebe3" />
+            <!-- Outer glow ring -->
+            <circle
+              cx="240"
+              cy="240"
+              r="195"
+              fill="none"
+              stroke="#e0281a"
+              stroke-width="1"
+              opacity="0.08"
+            />
+            <!-- Central plate circle -->
+            <circle cx="240" cy="240" r="120" fill="#e0281a" opacity="0.07" />
+            <!-- Plate rim -->
+            <circle
+              cx="240"
+              cy="240"
+              r="120"
+              fill="none"
+              stroke="#e0281a"
+              stroke-width="1.5"
+              opacity="0.22"
+            />
+            <!-- Spinning arcs group -->
+            <g id="arc-spinner">
+              <!-- Arc 1 - outermost -->
+              <path
+                d="M240,240 m-210,0 a210,210 0 0,1 420,0"
+                fill="none"
+                stroke="#e0281a"
+                stroke-width="1"
+                opacity="0.12"
+              />
+              <!-- Arc 2 -->
+              <path
+                d="M240,240 m-185,0 a185,185 0 0,0 370,0"
+                fill="none"
+                stroke="#e0281a"
+                stroke-width="1.2"
+                opacity="0.17"
+              />
+              <!-- Arc 3 -->
+              <path
+                d="M240,240 m-162,0 a162,162 0 0,1 324,0"
+                fill="none"
+                stroke="#e0281a"
+                stroke-width="1"
+                opacity="0.19"
+              />
+              <!-- Arc 4 -->
+              <path
+                d="M240,240 m-140,0 a140,140 0 0,0 280,0"
+                fill="none"
+                stroke="#e0281a"
+                stroke-width="1.5"
+                opacity="0.24"
+              />
+              <!-- Arc 5 -->
+              <path
+                d="M240,240 m-118,0 a118,118 0 0,1 236,0"
+                fill="none"
+                stroke="#e0281a"
+                stroke-width="1"
+                opacity="0.27"
+              />
+              <!-- Arc 6 -->
+              <path
+                d="M240,240 m-96,0 a96,96 0 0,0 192,0"
+                fill="none"
+                stroke="#e0281a"
+                stroke-width="1.8"
+                opacity="0.33"
+              />
+              <!-- Arc 7 -->
+              <path
+                d="M240,240 m-74,0 a74,74 0 0,1 148,0"
+                fill="none"
+                stroke="#e0281a"
+                stroke-width="2"
+                opacity="0.39"
+              />
+              <!-- Arc 8 - innermost -->
+              <path
+                d="M240,240 m-52,0 a52,52 0 0,0 104,0"
+                fill="none"
+                stroke="#e0281a"
+                stroke-width="2.5"
+                opacity="0.45"
+              />
+            </g>
+            <!-- Accent dots -->
+            <circle cx="155" cy="108" r="4" fill="#e0281a" opacity="0.7" />
+            <circle cx="362" cy="187" r="3" fill="#e0281a" opacity="0.5" />
+            <circle cx="198" cy="349" r="3.5" fill="#e0281a" opacity="0.6" />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHO IS CLARA -->
+    <section class="who-section">
+      <div class="section-inner">
+        <h2 class="section-heading who-heading">
+          <span data-fr="Qui suis-je ?" data-en="Who am I?">Qui suis-je ?</span>
+        </h2>
+        <div class="who-inner">
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div
+                class="stat-number"
+                data-target="96000"
+                data-suffix="96k+"
+                data-counted="false"
+              >
+                0
+              </div>
+              <div class="stat-label">
+                <span
+                  data-fr="vues TikTok / mois"
+                  data-en="TikTok views / month"
+                  >vues TikTok / mois</span
+                >
+              </div>
+            </div>
+
+            <div class="stat-item">
+              <div
+                class="stat-number"
+                data-target="132000"
+                data-suffix="132k+"
+                data-counted="false"
+              >
+                0
+              </div>
+              <div class="stat-label">
+                <span
+                  data-fr="vues Instagram / mois"
+                  data-en="Instagram views / month"
+                  >vues Instagram / mois</span
+                >
+              </div>
+            </div>
+
+            <div class="stat-item">
+              <div class="stat-number stat-static">Top Chef</div>
+              <div class="stat-label">
+                <span data-fr="Production TV" data-en="TV Production"
+                  >Production TV</span
+                >
+              </div>
+            </div>
+
+            <div class="stat-item">
+              <div
+                class="stat-number"
+                data-target="67"
+                data-suffix="67%"
+                data-counted="false"
+              >
+                0
+              </div>
+              <div class="stat-label">
+                <span data-fr="audience féminine" data-en="female audience"
+                  >audience féminine</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <p class="bio-text" id="bio-text">
+            <span
+              data-fr="Je m'appelle Clara Leuger — depuis toujours, on m'appelle Manger Leuger. Je crée du contenu food qui raconte l'expérience entière : l'ambiance, la carte, le moment. Mon travail à la production de Top Chef m'a donné un regard exigeant sur ce qui fait une vraie adresse. Mes photos au flash, mes vidéos immersives et mes recommandations éditorialisées touchent une audience parisienne, féminine, curieuse et engagée."
+              data-en="My name is Clara Leuger — I've always been called Manger Leuger. I create food content that tells the whole story: the atmosphere, the menu, the moment. My background in Top Chef production gave me a sharp eye for what makes a place truly worth knowing. My flash photography, immersive videos and editorialised recommendations reach a Parisian, engaged, curious audience."
+              >Je m'appelle Clara Leuger — depuis toujours, on m'appelle Manger
+              Leuger. Je crée du contenu food qui raconte l'expérience entière :
+              l'ambiance, la carte, le moment. Mon travail à la production de
+              Top Chef m'a donné un regard exigeant sur ce qui fait une vraie
+              adresse. Mes photos au flash, mes vidéos immersives et mes
+              recommandations éditorialisées touchent une audience parisienne,
+              féminine, curieuse et engagée.</span
+            >
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT I CREATE -->
+    <section class="create-section">
+      <div class="section-inner">
+        <h2 class="section-heading create-heading">
+          <span data-fr="Ce que je crée" data-en="What I create"
+            >Ce que je crée</span
+          >
+        </h2>
+        <div class="cards-grid" id="cards-grid">
+          <div class="card">
+            <div class="card-title">
+              <span data-fr="Photo &amp; Reels" data-en="Photo &amp; Reels"
+                >Photo &amp; Reels</span
+              >
+            </div>
+            <p class="card-body">
+              <span
+                data-fr="Photos flash immersives, reels scénarisés, stories — diffusés sur Instagram et TikTok avec cession de droits possible."
+                data-en="Immersive flash photography, scripted reels, stories — published on Instagram and TikTok. Rights transfer available on request."
+                >Photos flash immersives, reels scénarisés, stories — diffusés
+                sur Instagram et TikTok avec cession de droits possible.</span
+              >
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-title">
+              <span data-fr="Présence éditoriale" data-en="Editorial presence"
+                >Présence éditoriale</span
+              >
+            </div>
+            <p class="card-body">
+              <span
+                data-fr="Recommandations personnalisées, captions éditorialisées, intégration dans mes guides par arrondissement ou par ville."
+                data-en="Personalised recommendations, editorialised captions, featured in my neighbourhood and city guides."
+                >Recommandations personnalisées, captions éditorialisées,
+                intégration dans mes guides par arrondissement ou par
+                ville.</span
+              >
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-title">
+              <span
+                data-fr="Shooting marque blanche"
+                data-en="White-label content"
+                >Shooting marque blanche</span
+              >
+            </div>
+            <p class="card-body">
+              <span
+                data-fr="Photos et vidéos livrées en haute résolution, réutilisables sur vos réseaux, site, ads et print."
+                data-en="Photos and videos in high resolution — yours to reuse across socials, website, ads and print."
+                >Photos et vidéos livrées en haute résolution, réutilisables sur
+                vos réseaux, site, ads et print.</span
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW WE WORK -->
+    <section class="how-section">
+      <div class="how-inner">
+        <h2 class="section-heading how-heading">
+          <span data-fr="Comment ça marche ?" data-en="How does it work?"
+            >Comment ça marche ?</span
+          >
+        </h2>
+        <p class="how-body" id="how-body">
+          <span
+            data-fr="Chaque collaboration est différente. Certaines se font contre hébergement ou repas, d'autres sont rémunérées. L'essentiel : que l'endroit soit bon, que l'expérience soit vraie, et qu'on puisse en faire quelque chose de beau ensemble. Je suis ouverte à toutes les propositions — écrivez-moi et on en parle."
+            data-en="Every collaboration is different. Some happen in exchange for accommodation or a meal, others are paid. What matters: the place is genuinely good, the experience is real, and we can make something beautiful together. I'm open to all proposals — send me a message and we'll talk."
+            >Chaque collaboration est différente. Certaines se font contre
+            hébergement ou repas, d'autres sont rémunérées. L'essentiel : que
+            l'endroit soit bon, que l'expérience soit vraie, et qu'on puisse en
+            faire quelque chose de beau ensemble. Je suis ouverte à toutes les
+            propositions — écrivez-moi et on en parle.</span
+          >
+        </p>
+        <div class="tags">
+          <span class="tag">
+            <span data-fr="Échange ou rémunération" data-en="Exchange or paid"
+              >Échange ou rémunération</span
+            >
+          </span>
+          <span class="tag">
+            <span
+              data-fr="Partout dans le monde"
+              data-en="Anywhere in the world"
+              >Partout dans le monde</span
+            >
+          </span>
+          <span class="tag">
+            <span data-fr="Sur mesure" data-en="Tailored to you"
+              >Sur mesure</span
+            >
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee-strip" aria-hidden="true">
+      <div class="marquee-track">
+        <span
+          >Top Chef · Paris · New York · Osaka · Marseille · Pays Basque · Taco
+          Messa · Cavalier Paris · Time Out Paris · Bruts Montmartre ·
+          &nbsp;&nbsp;&nbsp;&nbsp;</span
+        >
+        <span
+          >Top Chef · Paris · New York · Osaka · Marseille · Pays Basque · Taco
+          Messa · Cavalier Paris · Time Out Paris · Bruts Montmartre ·
+          &nbsp;&nbsp;&nbsp;&nbsp;</span
+        >
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="contact-inner">
+        <h2 class="contact-heading contact-heading-el">
+          <span data-fr="Une idée ?" data-en="Got an idea?">Une idée ?</span>
+        </h2>
+        <p class="contact-body">
+          <span
+            data-fr="Je suis basée à Paris, mais je voyage constamment. Si vous avez un endroit à me faire découvrir — un restaurant, un hôtel, une adresse secrète — écrivez-moi. Toutes les propositions sont les bienvenues."
+            data-en="I'm based in Paris, but I'm constantly travelling. If you have somewhere worth discovering — a restaurant, a hotel, a hidden address — write to me. All proposals are welcome."
+            >Je suis basée à Paris, mais je voyage constamment. Si vous avez un
+            endroit à me faire découvrir — un restaurant, un hôtel, une adresse
+            secrète — écrivez-moi. Toutes les propositions sont les
+            bienvenues.</span
+          >
+        </p>
+        <span class="contact-email">hello@mangerleuger.com</span>
+        <div class="social-row">
+          <!-- Instagram -->
+          <a
+            class="social-link"
+            href="https://www.instagram.com/mangerleuger/"
+            target="_blank"
+            rel="noopener"
+            aria-label="Instagram"
+          >
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <circle cx="12" cy="12" r="4.5" />
+              <circle cx="17.5" cy="6.5" r="1" fill="#e0281a" stroke="none" />
+            </svg>
+          </a>
+          <!-- TikTok -->
+          <a
+            class="social-link"
+            href="https://www.tiktok.com/@mangerleuger"
+            target="_blank"
+            rel="noopener"
+            aria-label="TikTok"
+          >
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <span class="footer-copy">© 2025 Clara Leuger</span>
+      <span class="footer-brand">Manger Leuger</span>
+    </footer>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+      // ─── GSAP SETUP ───
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Hero stagger on load
+      const heroItems = gsap.utils.toArray(".gsap-hero-item");
+      gsap.fromTo(
+        heroItems,
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.9, stagger: 0.12, ease: "power3.out" },
+      );
+
+      // Section headings ScrollTrigger
+      var headingsToAnimate = [
+        ".who-heading",
+        ".create-heading",
+        ".how-heading",
+        ".contact-heading-el",
+      ];
+
+      headingsToAnimate.forEach(function (sel) {
+        var el = document.querySelector(sel);
+        if (el) {
+          gsap.from(el, {
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+            },
+            y: 25,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+          });
+        }
+      });
+
+      // Cards grid ScrollTrigger
+      var cardsGrid = document.querySelector("#cards-grid");
+      if (cardsGrid) {
+        var cards = cardsGrid.querySelectorAll(".card");
+        gsap.from(cards, {
+          scrollTrigger: {
+            trigger: cardsGrid,
+            start: "top 85%",
+          },
+          y: 25,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power3.out",
+        });
+      }
+
+      // ─── NAV SCROLL ───
+      var nav = document.getElementById("main-nav");
+      window.addEventListener("scroll", function () {
+        nav.classList.toggle("scrolled", window.scrollY > 80);
+      });
+
+      // ─── LANGUAGE TOGGLE ───
+      var currentLang = "fr";
+      var btnFr = document.getElementById("btn-fr");
+      var btnEn = document.getElementById("btn-en");
+
+      function setLanguage(lang) {
+        currentLang = lang;
+        var els = document.querySelectorAll("[data-fr]");
+        els.forEach(function (el) {
+          if (lang === "fr") {
+            el.innerText = el.dataset.fr;
+          } else {
+            el.innerText = el.dataset.en;
+          }
+        });
+        if (lang === "fr") {
+          btnFr.classList.add("active");
+          btnEn.classList.remove("active");
+          document.documentElement.lang = "fr";
+        } else {
+          btnEn.classList.add("active");
+          btnFr.classList.remove("active");
+          document.documentElement.lang = "en";
+        }
+      }
+
+      btnFr.addEventListener("click", function () {
+        setLanguage("fr");
+      });
+      btnEn.addEventListener("click", function () {
+        setLanguage("en");
+      });
+
+      // ─── COUNT-UP ───
+      function easeOut(t) {
+        return 1 - Math.pow(1 - t, 3);
+      }
+
+      function formatNumber(n, target, suffix) {
+        return suffix;
+      }
+
+      function runCountUp(el) {
+        var target = parseInt(el.dataset.target, 10);
+        var suffix = el.dataset.suffix;
+        var start = null;
+        var duration = 1500;
+
+        function step(timestamp) {
+          if (!start) start = timestamp;
+          var elapsed = timestamp - start;
+          var progress = Math.min(elapsed / duration, 1);
+          var eased = easeOut(progress);
+          var current = Math.floor(eased * target);
+
+          if (suffix === "96k+") {
+            el.textContent = Math.floor(current / 1000) + "k+";
+          } else if (suffix === "132k+") {
+            el.textContent = Math.floor(current / 1000) + "k+";
+          } else if (suffix === "67%") {
+            el.textContent = current + "%";
+          } else {
+            el.textContent = current;
+          }
+
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            el.textContent = suffix;
+          }
+        }
+
+        requestAnimationFrame(step);
+      }
+
+      var statEls = document.querySelectorAll(".stat-number[data-target]");
+      var countObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (
+              entry.isIntersecting &&
+              entry.target.dataset.counted === "false"
+            ) {
+              entry.target.dataset.counted = "true";
+              runCountUp(entry.target);
+            }
+          });
+        },
+        { threshold: 0.3 },
+      );
+
+      statEls.forEach(function (el) {
+        countObserver.observe(el);
+      });
+    </script>
+  </body>
+</html>

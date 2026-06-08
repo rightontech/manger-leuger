@@ -1,0 +1,1134 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manger Leuger — Clara Leuger</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,700;0,900;1,900&family=DM+Sans:wght@400;500&display=swap");
+
+      :root {
+        --bg: #f0ebe3;
+        --surface: #e8e1d7;
+        --accent: #e0281a;
+        --text: #111111;
+        --muted: #666057;
+        --white: #fafaf7;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "DM Sans", sans-serif;
+        font-size: 16px;
+        overflow-x: hidden;
+      }
+
+      /* =====================
+       NAV
+    ===================== */
+      #main-nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--white);
+        border-bottom: 3px solid var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 2rem;
+        transition: box-shadow 0.3s;
+      }
+
+      #main-nav.scrolled {
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .nav-logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22px;
+        letter-spacing: 0.05em;
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      .nav-logo-full {
+        display: inline;
+      }
+      .nav-logo-short {
+        display: none;
+      }
+
+      .lang-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+      }
+
+      .lang-toggle button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+        padding: 2px 4px;
+        transition: color 0.2s;
+      }
+
+      .lang-toggle button.active {
+        color: var(--accent);
+      }
+      .lang-toggle button:not(.active) {
+        color: #999;
+      }
+
+      .lang-sep {
+        color: #ccc;
+      }
+
+      /* =====================
+       BRACKET
+    ===================== */
+      .bracket {
+        color: var(--accent);
+      }
+
+      /* =====================
+       HERO
+    ===================== */
+      #hero {
+        min-height: 100vh;
+        background: var(--bg);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .ghost-text {
+        position: absolute;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 220px;
+        color: #111;
+        opacity: 0.03;
+        pointer-events: none;
+        white-space: nowrap;
+        z-index: 0;
+        user-select: none;
+      }
+
+      .ghost-manger {
+        top: 50%;
+        left: -20px;
+        transform: translateY(-50%);
+      }
+
+      .ghost-paris {
+        bottom: -20px;
+        left: -10px;
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        flex: 1;
+      }
+
+      .hero-art {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1rem 1rem;
+        min-height: 45vh;
+        order: 1;
+      }
+
+      .hero-art svg {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+      }
+
+      @keyframes flash-pulse {
+        0%,
+        100% {
+          opacity: 0.8;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.06);
+        }
+      }
+
+      #flash-dot {
+        animation: flash-pulse 2.8s ease-in-out infinite;
+        transform-origin: 260px 200px;
+      }
+
+      .hero-text {
+        padding: 1.5rem 1.75rem 3rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        order: 2;
+      }
+
+      .hero-label {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: 0.2em;
+        color: var(--text);
+        margin-bottom: 0.25rem;
+      }
+
+      .hero-name-clara,
+      .hero-name-leuger {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 68px;
+        color: var(--text);
+        line-height: 0.9;
+        display: block;
+      }
+
+      .hero-handle {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 900;
+        font-style: italic;
+        font-size: 22px;
+        color: var(--accent);
+        margin-top: 0.5rem;
+      }
+
+      .hero-tagline {
+        font-family: "DM Sans", sans-serif;
+        font-size: 18px;
+        color: var(--muted);
+        font-style: italic;
+        margin-top: 0.25rem;
+      }
+
+      .hero-cta {
+        display: inline-block;
+        margin-top: 1rem;
+        background: var(--accent);
+        color: #fff;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 15px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        padding: 14px 28px;
+        border-radius: 0;
+        transition: background 0.2s;
+      }
+
+      .hero-cta:hover {
+        background: #b01f15;
+      }
+
+      /* =====================
+       WHO IS CLARA
+    ===================== */
+      #who-is-clara {
+        background: #111;
+        position: relative;
+        overflow: hidden;
+        padding: 5rem 2rem;
+      }
+
+      .who-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .stat-item {
+      }
+
+      .stat-number {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 72px;
+        color: var(--accent);
+        line-height: 1;
+        display: block;
+      }
+
+      .stat-label {
+        font-family: "DM Sans", sans-serif;
+        font-size: 13px;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-top: 0.25rem;
+      }
+
+      .bio-col {
+      }
+
+      .bio-heading {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 52px;
+        color: var(--bg);
+        margin-bottom: 1.25rem;
+        line-height: 1;
+      }
+
+      .bio-text {
+        font-family: "DM Sans", sans-serif;
+        font-size: 16px;
+        color: #999;
+        line-height: 1.7;
+      }
+
+      /* =====================
+       WHAT I CREATE
+    ===================== */
+      #what-i-create {
+        background: var(--bg);
+        padding: 5rem 2rem;
+      }
+
+      .section-heading {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 48px;
+        color: var(--text);
+        margin-bottom: 2.5rem;
+        line-height: 1;
+      }
+
+      .cards-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .card {
+        background: var(--white);
+        border-left: 3px solid var(--accent);
+        padding: 1.5rem 1.5rem 1.5rem 1.75rem;
+        transition: border-left-width 0.2s ease;
+      }
+
+      .card:hover {
+        border-left-width: 6px;
+      }
+
+      .card-title {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 13px;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        margin-bottom: 0.75rem;
+      }
+
+      .card-body {
+        font-family: "DM Sans", sans-serif;
+        font-size: 15px;
+        color: #444;
+        line-height: 1.7;
+      }
+
+      /* =====================
+       HOW WE WORK
+    ===================== */
+      #how-we-work {
+        background: var(--bg);
+        padding: 5rem 2rem;
+        text-align: center;
+      }
+
+      .how-inner {
+        max-width: 720px;
+        margin: 0 auto;
+      }
+
+      .how-body {
+        font-family: "DM Sans", sans-serif;
+        font-size: 16px;
+        color: #555;
+        line-height: 1.8;
+        margin-bottom: 2rem;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .tag {
+        display: inline-block;
+        border: 1.5px solid var(--accent);
+        color: var(--accent);
+        background: transparent;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 6px 14px;
+        border-radius: 0;
+      }
+
+      /* =====================
+       MARQUEE
+    ===================== */
+      #marquee-strip {
+        background: var(--accent);
+        height: 44px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+      }
+
+      .marquee-track {
+        display: flex;
+        white-space: nowrap;
+        animation: marquee 30s linear infinite;
+      }
+
+      .marquee-track span {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 20px;
+        color: #fff;
+        letter-spacing: 0.12em;
+        white-space: nowrap;
+        padding-right: 0;
+      }
+
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* =====================
+       CONTACT
+    ===================== */
+      #contact {
+        background: var(--bg);
+        padding: 6rem 2rem;
+        text-align: center;
+      }
+
+      .contact-heading {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 60px;
+        color: var(--text);
+        margin-bottom: 1.5rem;
+        line-height: 1;
+      }
+
+      .contact-body {
+        font-family: "DM Sans", sans-serif;
+        font-size: 16px;
+        color: #555;
+        line-height: 1.7;
+        max-width: 560px;
+        margin: 0 auto;
+      }
+
+      .contact-email {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 22px;
+        color: var(--accent);
+        text-decoration: none;
+        display: block;
+        margin: 2rem auto;
+      }
+
+      .contact-email:hover {
+        text-decoration: underline;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .social-links a {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 16px;
+        text-transform: uppercase;
+        color: var(--text);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .social-links a:hover {
+        color: var(--accent);
+      }
+
+      /* =====================
+       FOOTER
+    ===================== */
+      footer {
+        border-top: 3px solid var(--accent);
+        padding: 1.5rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .footer-copy,
+      .footer-location {
+        font-family: "DM Sans", sans-serif;
+        font-size: 12px;
+        color: #888;
+      }
+
+      .footer-brand {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 16px;
+        color: var(--accent);
+        letter-spacing: 0.05em;
+      }
+
+      /* =====================
+       RESPONSIVE: 768px+
+    ===================== */
+      @media (min-width: 768px) {
+        .hero-inner {
+          flex-direction: row;
+          min-height: 100vh;
+        }
+
+        .hero-art {
+          width: 50%;
+          min-height: 100vh;
+          padding: 3rem 2rem;
+          order: 2;
+        }
+
+        .hero-art svg {
+          max-width: 520px;
+        }
+
+        .hero-text {
+          width: 50%;
+          min-height: 100vh;
+          justify-content: center;
+          padding: 4rem 3rem 4rem 4rem;
+          order: 1;
+        }
+
+        .hero-name-clara,
+        .hero-name-leuger {
+          font-size: 100px;
+        }
+
+        .who-inner {
+          flex-direction: row;
+          align-items: flex-start;
+          gap: 4rem;
+        }
+
+        .stats-grid {
+          flex: 0 0 auto;
+          width: 300px;
+        }
+
+        .bio-col {
+          flex: 1;
+        }
+
+        .cards-grid {
+          flex-direction: row;
+        }
+
+        .card {
+          flex: 1;
+        }
+
+        .section-heading {
+          font-size: 64px;
+        }
+
+        .contact-heading {
+          font-size: 80px;
+        }
+      }
+
+      /* =====================
+       RESPONSIVE: 1280px+
+    ===================== */
+      @media (min-width: 1280px) {
+        .hero-name-clara,
+        .hero-name-leuger {
+          font-size: 120px;
+        }
+
+        .nav-logo-full {
+          display: inline;
+        }
+        .nav-logo-short {
+          display: none;
+        }
+      }
+
+      /* =====================
+       MOBILE NAV LOGO
+    ===================== */
+      @media (max-width: 480px) {
+        .nav-logo-full {
+          display: none;
+        }
+        .nav-logo-short {
+          display: inline;
+        }
+      }
+
+      /* scroll-animate hidden state */
+      .scroll-hidden {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav id="main-nav">
+      <a href="#" class="nav-logo">
+        <span class="nav-logo-full">MANGER LEUGER</span>
+        <span class="nav-logo-short">ML</span>
+      </a>
+      <div class="lang-toggle">
+        <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+        <span class="lang-sep">|</span>
+        <button id="btn-en" onclick="setLang('en')">EN</button>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+      <span class="ghost-text ghost-manger" aria-hidden="true">MANGER</span>
+      <div class="hero-inner">
+        <!-- Text side -->
+        <div class="hero-text">
+          <p class="hero-label" id="hero-label">
+            <span class="bracket">[</span>
+            <span
+              data-fr="PARIS · FOOD &amp; LIFESTYLE"
+              data-en="PARIS · FOOD &amp; LIFESTYLE"
+              >PARIS · FOOD &amp; LIFESTYLE</span
+            >
+            <span class="bracket">]</span>
+          </p>
+          <span class="hero-name-clara" id="hero-clara">CLARA</span>
+          <span class="hero-name-leuger" id="hero-leuger">LEUGER</span>
+          <p class="hero-handle" id="hero-handle">MANGER LEUGER</p>
+          <p class="hero-tagline" id="hero-tagline">
+            <span
+              data-fr="Je mange. Je raconte. Je transporte."
+              data-en="I eat. I write. I transport you."
+              >Je mange. Je raconte. Je transporte.</span
+            >
+          </p>
+          <a href="#contact" class="hero-cta" id="hero-cta">
+            <span
+              data-fr="Travaillons ensemble →"
+              data-en="Let's work together →"
+              >Travaillons ensemble →</span
+            >
+          </a>
+        </div>
+
+        <!-- Art side -->
+        <div class="hero-art">
+          <svg
+            viewBox="0 0 520 520"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-label="Flash photography illustration"
+          >
+            <defs>
+              <radialGradient id="flash" cx="50%" cy="38%" r="35%">
+                <stop offset="0%" stop-color="rgba(255,252,220,0.85)" />
+                <stop offset="100%" stop-color="rgba(255,252,220,0)" />
+              </radialGradient>
+            </defs>
+            <!-- Background -->
+            <rect width="520" height="520" fill="#111111" />
+            <!-- Flash blast overlay -->
+            <rect width="520" height="520" fill="url(#flash)" />
+            <!-- Plate circle -->
+            <circle
+              cx="260"
+              cy="270"
+              r="120"
+              fill="white"
+              fill-opacity="0.07"
+              stroke="white"
+              stroke-width="1"
+              stroke-opacity="0.12"
+            />
+            <!-- Fork left tine 1 -->
+            <rect
+              x="205"
+              y="235"
+              width="3"
+              height="55"
+              fill="white"
+              opacity="0.6"
+              transform="rotate(-3 207 262)"
+            />
+            <!-- Fork left tine 2 -->
+            <rect
+              x="213"
+              y="235"
+              width="3"
+              height="55"
+              fill="white"
+              opacity="0.6"
+              transform="rotate(-3 207 262)"
+            />
+            <!-- Knife -->
+            <rect
+              x="308"
+              y="225"
+              width="2.5"
+              height="75"
+              fill="white"
+              opacity="0.6"
+              transform="rotate(3 309 262)"
+            />
+            <!-- Red splatter dots -->
+            <circle cx="175" cy="245" r="5" fill="#E0281A" />
+            <circle cx="188" cy="310" r="8" fill="#E0281A" />
+            <circle cx="165" cy="285" r="3.5" fill="#E0281A" />
+            <circle cx="200" cy="335" r="11" fill="#E0281A" />
+            <circle cx="155" cy="260" r="4" fill="#E0281A" />
+            <circle cx="340" cy="320" r="7" fill="#E0281A" />
+            <circle cx="355" cy="285" r="4.5" fill="#E0281A" />
+            <circle cx="365" cy="310" r="3" fill="#E0281A" />
+            <circle cx="320" cy="350" r="9" fill="#E0281A" />
+            <circle cx="178" cy="228" r="6" fill="#E0281A" />
+            <!-- Flash highlight dot -->
+            <circle
+              cx="260"
+              cy="200"
+              r="14"
+              fill="white"
+              opacity="0.9"
+              id="flash-dot"
+            />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHO IS CLARA -->
+    <section id="who-is-clara">
+      <span
+        class="ghost-text ghost-paris"
+        style="color: #fff"
+        aria-hidden="true"
+        >PARIS</span
+      >
+      <div class="who-inner">
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span
+              class="stat-number"
+              data-target="96000"
+              data-suffix="k+"
+              data-divisor="1000"
+              >0k+</span
+            >
+            <span
+              class="stat-label"
+              data-fr="vues TikTok / mois"
+              data-en="TikTok views / month"
+              >vues TikTok / mois</span
+            >
+          </div>
+          <div class="stat-item">
+            <span
+              class="stat-number"
+              data-target="132000"
+              data-suffix="k+"
+              data-divisor="1000"
+              >0k+</span
+            >
+            <span
+              class="stat-label"
+              data-fr="vues Instagram / mois"
+              data-en="Instagram views / month"
+              >vues Instagram / mois</span
+            >
+          </div>
+          <div class="stat-item">
+            <span
+              class="stat-number"
+              data-target="70"
+              data-suffix="%"
+              data-divisor="1"
+              >0%</span
+            >
+            <span class="stat-label" data-fr="25-35 ans" data-en="aged 25-35"
+              >25-35 ans</span
+            >
+          </div>
+          <div class="stat-item">
+            <span
+              class="stat-number"
+              data-target="52"
+              data-suffix="%"
+              data-divisor="1"
+              >0%</span
+            >
+            <span class="stat-label" data-fr="Parisiens" data-en="Paris-based"
+              >Parisiens</span
+            >
+          </div>
+        </div>
+        <!-- Bio -->
+        <div class="bio-col">
+          <h2 class="bio-heading scroll-hidden">
+            <span data-fr="Qui est Clara ?" data-en="Who is Clara?"
+              >Qui est Clara ?</span
+            >
+          </h2>
+          <p class="bio-text scroll-hidden">
+            <span
+              data-fr="Je m'appelle Clara Leuger — depuis toujours, on m'appelle Manger Leuger. Je crée du contenu food qui raconte l'expérience entière : l'ambiance, la carte, le moment. Mon travail à la production de Top Chef m'a donné un regard exigeant sur ce qui fait une vraie adresse. Mes photos au flash, mes vidéos immersives et mes recommandations éditorialisées touchent une audience parisienne, féminine, curieuse et engagée."
+              data-en="My name is Clara Leuger — I've always been called Manger Leuger. I create food content that tells the whole story: the atmosphere, the menu, the moment. My background in Top Chef production gave me a sharp eye for what makes a place truly worth knowing. Flash photography, immersive reels and editorialised recommendations — reaching a Parisian, engaged, curious audience."
+              >Je m'appelle Clara Leuger — depuis toujours, on m'appelle Manger
+              Leuger. Je crée du contenu food qui raconte l'expérience entière :
+              l'ambiance, la carte, le moment. Mon travail à la production de
+              Top Chef m'a donné un regard exigeant sur ce qui fait une vraie
+              adresse. Mes photos au flash, mes vidéos immersives et mes
+              recommandations éditorialisées touchent une audience parisienne,
+              féminine, curieuse et engagée.</span
+            >
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT I CREATE -->
+    <section id="what-i-create">
+      <div style="max-width: 1200px; margin: 0 auto">
+        <h2 class="section-heading scroll-hidden">
+          <span class="bracket">[</span>
+          <span data-fr="CE QUE JE CRÉE" data-en="WHAT I CREATE"
+            >CE QUE JE CRÉE</span
+          >
+          <span class="bracket">]</span>
+        </h2>
+        <div class="cards-grid">
+          <div class="card scroll-hidden">
+            <p class="card-title">PHOTO &amp; REELS</p>
+            <p class="card-body">
+              <span
+                data-fr="Photos flash immersives, reels scénarisés, stories — diffusés sur Instagram et TikTok avec cession de droits possible."
+                data-en="Immersive flash photos, scripted reels, stories — published on Instagram and TikTok. Rights transfer available."
+                >Photos flash immersives, reels scénarisés, stories — diffusés
+                sur Instagram et TikTok avec cession de droits possible.</span
+              >
+            </p>
+          </div>
+          <div class="card scroll-hidden">
+            <p class="card-title">
+              <span data-fr="PRÉSENCE ÉDITORIALE" data-en="EDITORIAL PRESENCE"
+                >PRÉSENCE ÉDITORIALE</span
+              >
+            </p>
+            <p class="card-body">
+              <span
+                data-fr="Recommandations personnalisées, captions éditorialisées, intégration dans mes guides par arrondissement ou par ville."
+                data-en="Personalised recommendations, editorialised captions, featured in my neighbourhood and city guides."
+                >Recommandations personnalisées, captions éditorialisées,
+                intégration dans mes guides par arrondissement ou par
+                ville.</span
+              >
+            </p>
+          </div>
+          <div class="card scroll-hidden">
+            <p class="card-title">
+              <span
+                data-fr="SHOOTING MARQUE BLANCHE"
+                data-en="WHITE-LABEL CONTENT"
+                >SHOOTING MARQUE BLANCHE</span
+              >
+            </p>
+            <p class="card-body">
+              <span
+                data-fr="Photos et vidéos livrées en haute résolution, réutilisables sur vos réseaux, site, ads et print."
+                data-en="Photos and videos in high resolution — yours to use across socials, website, ads and print."
+                >Photos et vidéos livrées en haute résolution, réutilisables sur
+                vos réseaux, site, ads et print.</span
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW WE WORK -->
+    <section id="how-we-work">
+      <div class="how-inner">
+        <h2 class="section-heading scroll-hidden" style="text-align: center">
+          <span class="bracket">[</span>
+          <span data-fr="COMMENT ÇA MARCHE ?" data-en="HOW DOES IT WORK?"
+            >COMMENT ÇA MARCHE ?</span
+          >
+          <span class="bracket">]</span>
+        </h2>
+        <p class="how-body scroll-hidden">
+          <span
+            data-fr="Chaque collaboration est différente. Certaines se font contre hébergement ou repas, d'autres sont rémunérées. L'essentiel : que l'endroit soit bon, que l'expérience soit vraie, et qu'on puisse en faire quelque chose de beau ensemble. Je suis ouverte à toutes les propositions — écrivez-moi et on en parle."
+            data-en="Every collaboration is different. Some happen in exchange for accommodation or a meal, others are paid. What matters: the place is genuinely good, the experience is real, and we can make something beautiful together. I'm open to all proposals — send me a message and we'll talk."
+            >Chaque collaboration est différente. Certaines se font contre
+            hébergement ou repas, d'autres sont rémunérées. L'essentiel : que
+            l'endroit soit bon, que l'expérience soit vraie, et qu'on puisse en
+            faire quelque chose de beau ensemble. Je suis ouverte à toutes les
+            propositions — écrivez-moi et on en parle.</span
+          >
+        </p>
+        <div class="tags">
+          <span class="tag"
+            ><span data-fr="Échange ou rémunération" data-en="Exchange or paid"
+              >Échange ou rémunération</span
+            ></span
+          >
+          <span class="tag"
+            ><span
+              data-fr="Partout dans le monde"
+              data-en="Anywhere in the world"
+              >Partout dans le monde</span
+            ></span
+          >
+          <span class="tag"
+            ><span data-fr="Sur mesure" data-en="Tailored to you"
+              >Sur mesure</span
+            ></span
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE STRIP -->
+    <div id="marquee-strip" aria-hidden="true">
+      <div class="marquee-track">
+        <span
+          >MANGER LEUGER · PARIS · NEW YORK · OSAKA · MARSEILLE · PAYS BASQUE ·
+          TOP CHEF · TACO MESSA · CAVALIER PARIS · TIME OUT PARIS ·
+          &nbsp;&nbsp;&nbsp;</span
+        >
+        <span
+          >MANGER LEUGER · PARIS · NEW YORK · OSAKA · MARSEILLE · PAYS BASQUE ·
+          TOP CHEF · TACO MESSA · CAVALIER PARIS · TIME OUT PARIS ·
+          &nbsp;&nbsp;&nbsp;</span
+        >
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2 class="contact-heading scroll-hidden">
+        <span class="bracket">[</span>
+        <span data-fr="UNE IDÉE ?" data-en="GOT AN IDEA?">UNE IDÉE ?</span>
+        <span class="bracket">]</span>
+      </h2>
+      <p class="contact-body scroll-hidden">
+        <span
+          data-fr="Je suis basée à Paris, mais je voyage constamment. Si vous avez un endroit à me faire découvrir — un restaurant, un hôtel, une adresse secrète — écrivez-moi. Toutes les propositions sont les bienvenues."
+          data-en="I'm based in Paris, but I'm constantly travelling. If you have somewhere worth discovering — a restaurant, a hotel, a hidden address — write to me. All proposals are welcome."
+          >Je suis basée à Paris, mais je voyage constamment. Si vous avez un
+          endroit à me faire découvrir — un restaurant, un hôtel, une adresse
+          secrète — écrivez-moi. Toutes les propositions sont les
+          bienvenues.</span
+        >
+      </p>
+      <a
+        href="mailto:hello@mangerleuger.com"
+        class="contact-email scroll-hidden"
+        >hello@mangerleuger.com</a
+      >
+      <div class="social-links scroll-hidden">
+        <a
+          href="https://www.instagram.com/mangerleuger/"
+          target="_blank"
+          rel="noopener"
+          >INSTAGRAM →</a
+        >
+        <a
+          href="https://www.tiktok.com/@mangerleuger"
+          target="_blank"
+          rel="noopener"
+          >TIKTOK →</a
+        >
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <span class="footer-copy">© 2025 Clara Leuger</span>
+      <span class="footer-brand">MANGER LEUGER</span>
+      <span class="footer-location">Paris, France</span>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+      // Register ScrollTrigger
+      gsap.registerPlugin(ScrollTrigger);
+
+      // ── Language toggle ──────────────────────────────────────────
+      var currentLang = "fr";
+
+      function setLang(lang) {
+        currentLang = lang;
+        document.querySelectorAll("[data-fr]").forEach(function (el) {
+          el.innerText = lang === "fr" ? el.dataset.fr : el.dataset.en;
+        });
+        document
+          .getElementById("btn-fr")
+          .classList.toggle("active", lang === "fr");
+        document
+          .getElementById("btn-en")
+          .classList.toggle("active", lang === "en");
+      }
+
+      // ── Nav scroll shadow ────────────────────────────────────────
+      var nav = document.getElementById("main-nav");
+      window.addEventListener("scroll", function () {
+        nav.classList.toggle("scrolled", window.scrollY > 80);
+      });
+
+      // ── Hero GSAP stagger ────────────────────────────────────────
+      document.addEventListener("DOMContentLoaded", function () {
+        var heroItems = [
+          document.getElementById("hero-label"),
+          document.getElementById("hero-clara"),
+          document.getElementById("hero-leuger"),
+          document.getElementById("hero-handle"),
+          document.getElementById("hero-tagline"),
+          document.getElementById("hero-cta"),
+        ];
+
+        gsap.from(heroItems, {
+          x: -30,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power3.out",
+        });
+
+        // ── ScrollTrigger for section headings + cards ──────────────
+        document.querySelectorAll(".scroll-hidden").forEach(function (el) {
+          gsap.from(el, {
+            y: 25,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+            },
+          });
+          el.classList.remove("scroll-hidden");
+        });
+      });
+
+      // ── Count-up IntersectionObserver ───────────────────────────
+      function easeOut(t) {
+        return 1 - Math.pow(1 - t, 3);
+      }
+
+      function animateCountUp(el) {
+        var target = parseInt(el.dataset.target, 10);
+        var suffix = el.dataset.suffix;
+        var divisor = parseInt(el.dataset.divisor, 10) || 1;
+        var duration = 1500;
+        var startTime = null;
+
+        function step(timestamp) {
+          if (!startTime) startTime = timestamp;
+          var elapsed = timestamp - startTime;
+          var progress = Math.min(elapsed / duration, 1);
+          var eased = easeOut(progress);
+          var current = Math.round(target * eased);
+          var display = divisor > 1 ? Math.round(current / divisor) : current;
+          el.innerText = display + suffix;
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            var finalDisplay =
+              divisor > 1 ? Math.round(target / divisor) : target;
+            el.innerText = finalDisplay + suffix;
+          }
+        }
+
+        requestAnimationFrame(step);
+      }
+
+      var statObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              animateCountUp(entry.target);
+              statObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.3 },
+      );
+
+      document.querySelectorAll("[data-target]").forEach(function (el) {
+        statObserver.observe(el);
+      });
+    </script>
+  </body>
+</html>

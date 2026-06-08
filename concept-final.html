@@ -1,0 +1,1745 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clara Leuger — Manger Leuger</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:wght@400;500&display=swap");
+
+      :root {
+        --bg: #f0ebe3;
+        --surface: #e8e1d7;
+        --white: #fafaf7;
+        --accent: #e0281a;
+        --text: #111111;
+        --muted: #666057;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "DM Sans", sans-serif;
+        font-weight: 400;
+        overflow-x: hidden;
+        line-height: 1.6;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0.02;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      }
+
+      /* ─── NAV ─── */
+      #main-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.25rem 2rem;
+        transition:
+          background 0.3s,
+          border-bottom 0.3s;
+      }
+
+      #main-nav.scrolled {
+        background: var(--bg);
+        border-bottom: 1px solid rgba(224, 40, 26, 0.2);
+      }
+
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+      }
+
+      .nav-logo-img {
+        height: 36px;
+        width: auto;
+        display: block;
+      }
+
+      .nav-lang {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .nav-lang .sep {
+        color: rgba(255, 255, 255, 0.5);
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 12px;
+        transition: color 0.3s;
+      }
+
+      #main-nav.scrolled .nav-lang .sep {
+        color: var(--muted);
+      }
+
+      .lang-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        padding: 4px 6px;
+        transition: color 0.2s;
+        color: rgba(255, 255, 255, 0.55);
+      }
+
+      #main-nav.scrolled .lang-btn {
+        color: var(--muted);
+      }
+      .lang-btn.active {
+        color: var(--accent);
+      }
+
+      /* ─── HERO ─── */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 7rem 2rem 4rem;
+        position: relative;
+        overflow: hidden;
+        background-color: #111;
+      }
+
+      .hero-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+      }
+
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 1;
+      }
+
+      .hero-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        width: 100%;
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero-text {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        max-width: 680px;
+      }
+
+      .hero-label {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 11px;
+        color: var(--accent);
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+      }
+
+      .hero-name {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 52px;
+        color: #fafaf7;
+        line-height: 1;
+      }
+
+      .hero-handle {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 18px;
+        color: var(--accent);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      .hero-tagline {
+        font-family: "DM Sans", sans-serif;
+        font-style: italic;
+        font-size: 20px;
+        color: rgba(255, 255, 255, 0.78);
+        line-height: 1.5;
+      }
+
+      .hero-cta {
+        display: inline-block;
+        border: none;
+        background: var(--accent);
+        color: #fafaf7;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 14px 32px;
+        transition: background 0.3s;
+        align-self: flex-start;
+      }
+
+      .hero-cta:hover {
+        background: #b01f15;
+        color: #fafaf7;
+      }
+
+      @media (min-width: 768px) {
+        .hero-name {
+          font-size: 96px;
+        }
+      }
+
+      /* ─── SECTIONS SHARED ─── */
+      section {
+        padding: 5rem 2rem;
+      }
+
+      .section-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+
+      .section-heading {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 56px;
+        color: var(--text);
+        line-height: 1;
+        margin-bottom: 3rem;
+      }
+
+      @media (min-width: 768px) {
+        .section-heading {
+          font-size: 80px;
+        }
+      }
+
+      /* ─── WHO IS CLARA ─── */
+      .who-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .stat-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+
+      .stat-number {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 48px;
+        color: var(--accent);
+        line-height: 1;
+      }
+
+      @media (min-width: 768px) {
+        .stat-number {
+          font-size: 56px;
+        }
+      }
+
+      .stat-label {
+        font-family: "DM Sans", sans-serif;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .bio-text {
+        font-family: "DM Sans", sans-serif;
+        font-size: 16px;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      @media (min-width: 768px) {
+        .who-inner {
+          flex-direction: row;
+          align-items: flex-start;
+          gap: 5rem;
+        }
+        .stats-grid {
+          flex: 0 0 auto;
+          width: 380px;
+        }
+        .bio-text {
+          flex: 1;
+          padding-top: 0.5rem;
+        }
+      }
+
+      /* ─── GALLERY ─── */
+      .gallery-section {
+        background: var(--bg);
+        padding: 5rem 2rem;
+      }
+
+      .gallery-columns {
+        columns: 4;
+        column-gap: 8px;
+      }
+
+      @media (max-width: 1024px) {
+        .gallery-columns {
+          columns: 3;
+        }
+      }
+      @media (max-width: 640px) {
+        .gallery-columns {
+          columns: 2;
+        }
+      }
+
+      .gallery-item {
+        break-inside: avoid;
+        margin-bottom: 8px;
+        display: block;
+      }
+
+      .gallery-item img {
+        width: 100%;
+        display: block;
+        border-radius: 4px;
+        transition: transform 0.4s ease;
+        object-fit: cover;
+      }
+
+      .gallery-item img:hover {
+        transform: scale(1.03);
+      }
+
+      /* ─── EN MOUVEMENT ─── */
+      .reels-section {
+        background: var(--text);
+        padding: 5rem 2rem;
+      }
+
+      .reels-section .section-heading {
+        color: #fafaf7;
+      }
+
+      .reels-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        align-items: start;
+      }
+
+      @media (max-width: 768px) {
+        .reels-grid {
+          grid-template-columns: 1fr;
+          max-width: 320px;
+          margin: 0 auto;
+        }
+      }
+
+      .reel-col {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      @media (max-width: 375px) {
+        .reel-mobile-hide {
+          display: none;
+        }
+      }
+
+      .reel-video {
+        width: 100%;
+        aspect-ratio: 9 / 16;
+        object-fit: cover;
+        border-radius: 8px;
+        max-height: 420px;
+        display: block;
+      }
+
+      .reel-label {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 13px;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        text-align: center;
+      }
+
+      .reel-link {
+        position: relative;
+        display: block;
+        border-radius: 8px;
+        overflow: hidden;
+        text-decoration: none;
+      }
+
+      .reel-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 40px;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .reel-link:hover .reel-overlay {
+        opacity: 1;
+      }
+
+      .reel-overlay-text {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 12px;
+        color: #ffffff;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      /* ─── WHAT I CREATE ─── */
+      .create-section {
+        background: var(--surface);
+        border-top: 2px solid var(--accent);
+      }
+
+      .cards-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      @media (min-width: 768px) {
+        .cards-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .card {
+        border-top: 2px solid var(--accent);
+        background: transparent;
+        padding: 2.5rem;
+      }
+
+      @media (min-width: 768px) {
+        .card {
+          border-top: 2px solid var(--accent);
+          border-left: none;
+        }
+        .card:not(:first-child) {
+          border-left: 1px solid rgba(224, 40, 26, 0.15);
+        }
+      }
+
+      .card-title {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 900;
+        font-size: 18px;
+        color: var(--accent);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+      }
+
+      .card-body {
+        font-family: "DM Sans", sans-serif;
+        font-size: 17px;
+        color: var(--muted);
+        line-height: 1.75;
+      }
+
+      /* ─── PAST COLLABORATIONS ─── */
+      .collabs-section {
+        background: var(--bg);
+        padding: 5rem 2rem;
+      }
+
+      .collabs-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+
+      .collabs-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      @media (min-width: 768px) {
+        .collabs-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .collab-card {
+        background: var(--white);
+        border-left: 3px solid var(--accent);
+        padding: 1.5rem;
+      }
+
+      .collab-venue {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 28px;
+        color: var(--text);
+        line-height: 1;
+        margin-bottom: 0.2rem;
+      }
+
+      .collab-location {
+        display: block;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 12px;
+        color: var(--accent);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+      }
+
+      .collab-result {
+        font-family: "DM Sans", sans-serif;
+        font-size: 15px;
+        color: var(--muted);
+        line-height: 1.7;
+        margin-bottom: 1rem;
+      }
+
+      .format-tag {
+        display: inline-block;
+        border: 1px solid var(--accent);
+        color: var(--accent);
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        padding: 3px 10px;
+      }
+
+      .collab-stat-img {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 4px;
+        margin-top: 1rem;
+        display: block;
+      }
+
+      .collabs-note {
+        font-family: "DM Sans", sans-serif;
+        font-style: italic;
+        font-size: 13px;
+        color: #999;
+        text-align: center;
+        margin-top: 2rem;
+      }
+
+      /* ─── HOW WE WORK ─── */
+      .how-section {
+        background: var(--surface);
+        border-top: 1px solid var(--accent);
+      }
+
+      .how-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+
+      .how-intro-wrap {
+        max-width: 680px;
+        margin: 0 auto 3rem;
+        text-align: center;
+      }
+
+      .how-intro-text {
+        font-family: "DM Sans", sans-serif;
+        font-size: 16px;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .offer-cards {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+
+      @media (min-width: 768px) {
+        .offer-cards {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .offer-card {
+        background: var(--white);
+        border-left: 3px solid var(--accent);
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+      }
+
+      .offer-card-title {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 13px;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        margin-bottom: 0.75rem;
+      }
+
+      .offer-card-body {
+        font-family: "DM Sans", sans-serif;
+        font-size: 15px;
+        color: var(--muted);
+        line-height: 1.7;
+        flex: 1;
+        margin-bottom: 1.5rem;
+      }
+
+      .offer-cta {
+        display: inline-block;
+        background: var(--accent);
+        color: #fafaf7;
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 10px 20px;
+        transition: background 0.3s;
+        align-self: flex-start;
+      }
+
+      .offer-cta:hover {
+        background: #b01f15;
+        color: #fafaf7;
+      }
+
+      .offer-closing {
+        font-family: "DM Sans", sans-serif;
+        font-style: italic;
+        color: var(--muted);
+        font-size: 16px;
+        text-align: center;
+        margin-top: 2rem;
+      }
+
+      /* ─── MARQUEE ─── */
+      .marquee-strip {
+        background: #e0281a;
+        height: 52px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+      }
+
+      .marquee-track {
+        display: flex;
+        white-space: nowrap;
+        animation: marquee 30s linear infinite;
+      }
+
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      .marquee-track span {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 13px;
+        color: #ffffff;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      /* ─── CONTACT ─── */
+      #contact {
+        text-align: center;
+        padding: 6rem 2rem;
+      }
+
+      .contact-inner {
+        max-width: 560px;
+        margin: 0 auto;
+      }
+
+      .contact-heading {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 56px;
+        color: var(--text);
+        margin-bottom: 1.5rem;
+        line-height: 1;
+      }
+
+      @media (min-width: 768px) {
+        .contact-heading {
+          font-size: 72px;
+        }
+      }
+
+      .contact-body {
+        font-family: "DM Sans", sans-serif;
+        font-size: 16px;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .contact-ethics {
+        display: block;
+        font-family: "DM Sans", sans-serif;
+        font-style: italic;
+        font-size: 13px;
+        color: #999;
+        margin-top: 1.5rem;
+      }
+
+      .contact-email {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+        color: var(--accent);
+        display: block;
+        margin: 2rem auto;
+        text-decoration: none;
+        transition: opacity 0.2s;
+      }
+
+      .contact-email:hover {
+        opacity: 0.7;
+      }
+
+      .social-row {
+        display: inline-flex;
+        gap: 1.5rem;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .social-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.2s;
+      }
+
+      .social-link:hover {
+        opacity: 0.6;
+      }
+
+      .social-link svg {
+        width: 24px;
+        height: 24px;
+        stroke: var(--accent);
+        fill: none;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* ─── FOOTER ─── */
+      footer {
+        border-top: 1px solid rgba(224, 40, 26, 0.2);
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: center;
+        text-align: center;
+      }
+
+      @media (min-width: 640px) {
+        footer {
+          flex-direction: row;
+          justify-content: space-between;
+          text-align: left;
+        }
+      }
+
+      .footer-copy {
+        font-family: "DM Sans", sans-serif;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .footer-logo-img {
+        height: 32px;
+        width: auto;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav id="main-nav">
+      <a class="nav-logo" href="#">
+        <img
+          src="assets/pics/logo.PNG"
+          alt="Manger Leuger"
+          class="nav-logo-img"
+        />
+      </a>
+      <div class="nav-lang">
+        <button id="btn-fr" class="lang-btn active" aria-label="Français">
+          FR
+        </button>
+        <span class="sep">|</span>
+        <button id="btn-en" class="lang-btn" aria-label="English">EN</button>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <video class="hero-video" autoplay muted loop playsinline>
+        <source src="assets/pics/countrysidepaireel.MOV" />
+      </video>
+      <div class="hero-overlay"></div>
+      <div class="hero-inner">
+        <div class="hero-text">
+          <p class="hero-label gsap-hero-item">
+            <span
+              data-fr="PARIS · FOOD &amp; LIFESTYLE"
+              data-en="PARIS · FOOD &amp; LIFESTYLE"
+              >PARIS · FOOD &amp; LIFESTYLE</span
+            >
+          </p>
+          <h1 class="hero-name gsap-hero-item">Clara Leuger</h1>
+          <p class="hero-handle gsap-hero-item">Manger Leuger</p>
+          <p class="hero-tagline gsap-hero-item">
+            <span
+              data-fr="Je mange. Je raconte. Je transporte."
+              data-en="I eat. I write. I transport you."
+              >Je mange. Je raconte. Je transporte.</span
+            >
+          </p>
+          <a href="#contact" class="hero-cta gsap-hero-item">
+            <span data-fr="Travaillons ensemble" data-en="Let's work together"
+              >Travaillons ensemble</span
+            >
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHO IS CLARA -->
+    <section class="who-section">
+      <div class="section-inner">
+        <h2 class="section-heading who-heading">
+          <span data-fr="Qui suis-je ?" data-en="Who am I?">Qui suis-je ?</span>
+        </h2>
+        <div class="who-inner">
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div
+                class="stat-number"
+                data-target="120000"
+                data-suffix="120k+"
+                data-counted="false"
+              >
+                0
+              </div>
+              <div class="stat-label">
+                <span
+                  data-fr="vues · 3 derniers mois"
+                  data-en="views · last 3 months"
+                  >vues · 3 derniers mois</span
+                >
+              </div>
+            </div>
+            <div class="stat-item">
+              <div
+                class="stat-number"
+                data-target="67"
+                data-suffix="67%"
+                data-counted="false"
+              >
+                0
+              </div>
+              <div class="stat-label">
+                <span data-fr="audience 25–44 ans" data-en="audience aged 25–44"
+                  >audience 25–44 ans</span
+                >
+              </div>
+            </div>
+            <div class="stat-item">
+              <div
+                class="stat-number"
+                data-target="82"
+                data-suffix="82%"
+                data-counted="false"
+              >
+                0
+              </div>
+              <div class="stat-label">
+                <span data-fr="audience française" data-en="French audience"
+                  >audience française</span
+                >
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">Top Chef</div>
+              <div class="stat-label">
+                <span data-fr="Production TV" data-en="TV Production"
+                  >Production TV</span
+                >
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">5+</div>
+              <div class="stat-label">
+                <span data-fr="pays couverts" data-en="countries covered"
+                  >pays couverts</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <p class="bio-text" id="bio-text">
+            <span
+              data-fr="Je m'appelle Clara Leuger — depuis toujours, on m'appelle Manger Leuger. Je suis une jeune femme curieuse et nomade, basée à Paris mais en mouvement permanent depuis 5 mois à travers l'Asie et l'Europe. Je documente les faces cachées des destinations : l'hébergement, la gastronomie, la culture locale — avec un regard esthétique et raffiné, loin des clichés. Mon travail à la production de Top Chef — l'émission culinaire la plus regardée en France — m'a donné un œil exigeant. Ma photographie est numérique, brute, spontanée — un style vintage qui tranche avec les formats classiques. Je parle aux gens, je les fais parler de leur culture et de leurs lieux. Je travaille avec des restaurants, hôtels, offices de tourisme et marques food qui croient en la puissance d'un contenu authentique."
+              data-en="My name is Clara Leuger — I've always been called Manger Leuger. I'm a curious, nomadic young woman, Paris-based but constantly moving — 5 months into a trip through Asia and Europe. I document the hidden faces of destinations: accommodation, gastronomy, local culture — with a refined aesthetic eye, far from clichés. My background on Top Chef — the most watched culinary show in France — sharpened my instincts. My photography is digital, raw, spontaneous — a vintage style that cuts through the noise. I talk to people, I get them talking about their culture and their places. I work with restaurants, hotels, tourist boards and food brands that believe in the power of authentic content."
+              >Je m'appelle Clara Leuger — depuis toujours, on m'appelle Manger
+              Leuger. Je suis une jeune femme curieuse et nomade, basée à Paris
+              mais en mouvement permanent depuis 5 mois à travers l'Asie et
+              l'Europe. Je documente les faces cachées des destinations :
+              l'hébergement, la gastronomie, la culture locale — avec un regard
+              esthétique et raffiné, loin des clichés. Mon travail à la
+              production de Top Chef — l'émission culinaire la plus regardée en
+              France — m'a donné un œil exigeant. Ma photographie est numérique,
+              brute, spontanée — un style vintage qui tranche avec les formats
+              classiques. Je parle aux gens, je les fais parler de leur culture
+              et de leurs lieux. Je travaille avec des restaurants, hôtels,
+              offices de tourisme et marques food qui croient en la puissance
+              d'un contenu authentique.</span
+            >
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY: MON UNIVERS -->
+    <section class="gallery-section" id="gallery-section">
+      <div class="section-inner">
+        <h2 class="section-heading gallery-heading">
+          <span data-fr="MON UNIVERS" data-en="MY WORLD">MON UNIVERS</span>
+        </h2>
+        <div class="gallery-columns" id="gallery-columns">
+          <div class="gallery-item">
+            <img
+              src="assets/pics/IMG_4417.JPG"
+              alt="Wat Arun illuminé au crépuscule sur le Chao Phraya, Bangkok"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="assets/pics/IMG_4652.JPG"
+              alt="Chirashi don de fruits de mer sur plateau laqué, Japon"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="assets/pics/IMG_3391.JPEG"
+              alt="Pêcheur en barque au milieu des lotus, Cambodge"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="assets/pics/IMG_1609.JPG"
+              alt="Le Fuji-san au coucher de soleil derrière un Lawson, Japon"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="assets/pics/IMG_4194.JPG"
+              alt="Som tam, salade de papaye épicée dans une gargote de Bangkok"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="assets/pics/IMG_3898.JPG"
+              alt="Train rouge surgissant des montagnes brumeuses de Sapa, Vietnam"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="assets/pics/IMG_4207.JPG"
+              alt="Mercedes vintage garée devant un stupa de temple, Bangkok"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="assets/pics/IMG_3531.JPG"
+              alt="Moto chargée de sacs de poissons rouges dans une rue du Vietnam"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="assets/pics/IMG_3963.JPG"
+              alt="Rizières en terrasses inondées sous la brume matinale, Sapa"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="assets/pics/IMG_5789.JPG"
+              alt="Bungalow en bambou et toit de chaume, hébergement boutique en Asie"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="assets/pics/IMG_4506.JPG"
+              alt="Cycliste passant devant un restaurant vintage à Shimokitazawa, Tokyo"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="assets/pics/IMG_3913.JPG"
+              alt="Rizières en terrasses dorées au soleil couchant, Sapa Vietnam"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="assets/pics/IMG_4614.JPG"
+              alt="Vue sur la mer depuis la fenêtre d'un train local japonais"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="assets/pics/IMG_5796.JPG"
+              alt="Jardin tropical et bungalow en briques d'un hôtel boutique"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="assets/pics/IMG_4988.JPG"
+              alt="Citrouille à pois de Yayoi Kusama face à la mer, Naoshima"
+              loading="lazy"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="assets/pics/IMG_5829.JPG"
+              alt="Piscine en lagon d'un resort boutique entouré de montagnes"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EN MOUVEMENT -->
+    <section class="reels-section" id="reels-section">
+      <div class="section-inner">
+        <h2 class="section-heading reels-heading">
+          <span data-fr="EN MOUVEMENT" data-en="IN MOTION">EN MOUVEMENT</span>
+        </h2>
+        <div class="reels-grid">
+          <div class="reel-col">
+            <a
+              href="https://www.instagram.com/mangerleuger/"
+              target="_blank"
+              rel="noopener"
+              class="reel-link"
+              aria-label="Voir sur Instagram"
+            >
+              <video autoplay muted loop playsinline class="reel-video">
+                <source src="assets/pics/camodiareel.MP4" type="video/mp4" />
+              </video>
+              <div class="reel-overlay">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <circle cx="12" cy="12" r="4.5" />
+                  <circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none" />
+                </svg>
+                <span
+                  class="reel-overlay-text"
+                  data-fr="Voir sur Instagram"
+                  data-en="View on Instagram"
+                  >Voir sur Instagram</span
+                >
+              </div>
+            </a>
+            <p class="reel-label">
+              <span data-fr="Cambodge" data-en="Cambodia">Cambodge</span>
+            </p>
+          </div>
+          <div class="reel-col reel-mobile-hide">
+            <a
+              href="https://www.instagram.com/mangerleuger/"
+              target="_blank"
+              rel="noopener"
+              class="reel-link"
+              aria-label="Voir sur Instagram"
+            >
+              <video autoplay muted loop playsinline class="reel-video">
+                <source src="assets/pics/sapareel.MP4" type="video/mp4" />
+              </video>
+              <div class="reel-overlay">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <circle cx="12" cy="12" r="4.5" />
+                  <circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none" />
+                </svg>
+                <span
+                  class="reel-overlay-text"
+                  data-fr="Voir sur Instagram"
+                  data-en="View on Instagram"
+                  >Voir sur Instagram</span
+                >
+              </div>
+            </a>
+            <p class="reel-label">
+              <span data-fr="Vietnam" data-en="Vietnam">Vietnam</span>
+            </p>
+          </div>
+          <div class="reel-col reel-mobile-hide">
+            <a
+              href="https://www.instagram.com/mangerleuger/"
+              target="_blank"
+              rel="noopener"
+              class="reel-link"
+              aria-label="Voir sur Instagram"
+            >
+              <video autoplay muted loop playsinline class="reel-video">
+                <source src="assets/pics/parisreel.MP4" type="video/mp4" />
+              </video>
+              <div class="reel-overlay">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <circle cx="12" cy="12" r="4.5" />
+                  <circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none" />
+                </svg>
+                <span
+                  class="reel-overlay-text"
+                  data-fr="Voir sur Instagram"
+                  data-en="View on Instagram"
+                  >Voir sur Instagram</span
+                >
+              </div>
+            </a>
+            <p class="reel-label">
+              <span data-fr="Paris" data-en="Paris">Paris</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT I CREATE -->
+    <section class="create-section">
+      <div class="section-inner">
+        <h2 class="section-heading create-heading">
+          <span data-fr="Ce que je crée" data-en="What I create"
+            >Ce que je crée</span
+          >
+        </h2>
+        <div class="cards-grid" id="cards-grid">
+          <div class="card">
+            <div class="card-title">
+              <span data-fr="Photo &amp; Reels" data-en="Photo &amp; Reels"
+                >Photo &amp; Reels</span
+              >
+            </div>
+            <p class="card-body">
+              <span
+                data-fr="Photos flash immersives, reels scénarisés, stories — diffusés sur Instagram et TikTok avec cession de droits possible."
+                data-en="Immersive flash photography, scripted reels, stories — published on Instagram and TikTok. Rights transfer available on request."
+                >Photos flash immersives, reels scénarisés, stories — diffusés
+                sur Instagram et TikTok avec cession de droits possible.</span
+              >
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-title">
+              <span data-fr="Présence éditoriale" data-en="Editorial presence"
+                >Présence éditoriale</span
+              >
+            </div>
+            <p class="card-body">
+              <span
+                data-fr="Recommandations personnalisées, captions éditorialisées, intégration dans mes guides par arrondissement ou par ville."
+                data-en="Personalised recommendations, editorialised captions, featured in my neighbourhood and city guides."
+                >Recommandations personnalisées, captions éditorialisées,
+                intégration dans mes guides par arrondissement ou par
+                ville.</span
+              >
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-title">
+              <span
+                data-fr="Shooting marque blanche"
+                data-en="White-label content"
+                >Shooting marque blanche</span
+              >
+            </div>
+            <p class="card-body">
+              <span
+                data-fr="Photos et vidéos livrées en haute résolution, réutilisables sur vos réseaux, site, ads et print."
+                data-en="Photos and videos in high resolution — yours to reuse across socials, website, ads and print."
+                >Photos et vidéos livrées en haute résolution, réutilisables sur
+                vos réseaux, site, ads et print.</span
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAST COLLABORATIONS -->
+    <section class="collabs-section">
+      <div class="collabs-inner">
+        <h2 class="section-heading collabs-heading">
+          <span
+            data-fr="ILS M'ONT FAIT CONFIANCE"
+            data-en="THEY'VE WORKED WITH ME"
+            >ILS M'ONT FAIT CONFIANCE</span
+          >
+        </h2>
+        <div class="collabs-grid" id="collabs-grid">
+          <div class="collab-card">
+            <p class="collab-venue">TACO MESSA</p>
+            <span class="collab-location">Paris 75010</span>
+            <p class="collab-result">
+              <span
+                data-fr="La vidéo a généré plus de visites que prévu — le restaurant a confirmé des nouvelles réservations directement liées au post."
+                data-en="The video drove more visits than expected — the venue confirmed new bookings directly linked to the post."
+                >La vidéo a généré plus de visites que prévu — le restaurant a
+                confirmé des nouvelles réservations directement liées au
+                post.</span
+              >
+            </p>
+            <span class="format-tag">REEL</span>
+          </div>
+
+          <div class="collab-card">
+            <p class="collab-venue">CAVALIER PARIS</p>
+            <span class="collab-location">Paris 75011</span>
+            <p class="collab-result">
+              <span
+                data-fr="Publication en collaboration atteignant 30 675 vues, dont 93,9% hors abonnés."
+                data-en="Collaboration post reaching 30,675 views, 93.9% from non-followers."
+                >Publication en collaboration atteignant 30 675 vues, dont 93,9%
+                hors abonnés.</span
+              >
+            </p>
+            <span class="format-tag">COLLAB POST</span>
+          </div>
+
+          <div class="collab-card">
+            <p class="collab-venue">BRUTS MONTMARTRE</p>
+            <span class="collab-location">Paris 75018</span>
+            <p class="collab-result">
+              <span
+                data-fr="Une dizaine de tables réservées directement après la publication."
+                data-en="Around ten tables booked directly following the post."
+                >Une dizaine de tables réservées directement après la
+                publication.</span
+              >
+            </p>
+            <span class="format-tag">REEL</span>
+          </div>
+
+          <div class="collab-card">
+            <p class="collab-venue">TIME OUT PARIS</p>
+            <span class="collab-location">Paris</span>
+            <p class="collab-result">
+              <span
+                data-fr="Photo sélectionnée en couverture du guide Time Out Paris."
+                data-en="Photo selected as cover image for Time Out Paris."
+                >Photo sélectionnée en couverture du guide Time Out Paris.</span
+              >
+            </p>
+            <span class="format-tag">EDITORIAL</span>
+          </div>
+        </div>
+        <p class="collabs-note">
+          <span
+            data-fr="Résultats issus de collaborations réelles — aucun chiffre inventé."
+            data-en="Results from real collaborations — no invented numbers."
+            >Résultats issus de collaborations réelles — aucun chiffre
+            inventé.</span
+          >
+        </p>
+      </div>
+    </section>
+
+    <!-- HOW WE WORK -->
+    <section class="how-section">
+      <div class="how-inner">
+        <div class="how-intro-wrap">
+          <h2 class="section-heading how-heading">
+            <span data-fr="AVEC QUI JE TRAVAILLE" data-en="WHO I WORK WITH"
+              >AVEC QUI JE TRAVAILLE</span
+            >
+          </h2>
+          <p class="how-intro-text">
+            <span
+              data-fr="Mon approche est hyper organique — loin des contenus sponsorisés classiques. J'ai une communauté engagée qui me suit pour mes vraies recommandations. Ce qui donne souvent plus de poids qu'une grosse campagne. Je réponds à un brief, je m'adapte à votre univers de marque, et je livre du contenu que vous pouvez réutiliser sur vos réseaux, votre site, vos ads. Une histoire racontée au fil d'un carrousel. Un regard authentique sur votre lieu."
+              data-en="My approach is organic — far from classic sponsored content. I have an engaged community that follows me for real recommendations. That often carries more weight than a big campaign. I respond to briefs, I adapt to your brand universe, and I deliver content you can reuse across your socials, website and ads. A story told through a carousel. An authentic eye on your place."
+              >Mon approche est hyper organique — loin des contenus sponsorisés
+              classiques. J'ai une communauté engagée qui me suit pour mes
+              vraies recommandations. Ce qui donne souvent plus de poids qu'une
+              grosse campagne. Je réponds à un brief, je m'adapte à votre
+              univers de marque, et je livre du contenu que vous pouvez
+              réutiliser sur vos réseaux, votre site, vos ads. Une histoire
+              racontée au fil d'un carrousel. Un regard authentique sur votre
+              lieu.</span
+            >
+          </p>
+        </div>
+
+        <div class="offer-cards" id="offer-cards">
+          <div class="offer-card">
+            <p class="offer-card-title">
+              <span data-fr="CARROUSEL + STORIES" data-en="CAROUSEL + STORIES"
+                >CARROUSEL + STORIES</span
+              >
+            </p>
+            <p class="offer-card-body">
+              <span
+                data-fr="1 post carrousel en cross-post avec légende personnalisée + lot de 3 stories sur Manger Leuger ou en marque blanche. Option cession de droits totale disponible."
+                data-en="1 carousel post with personalised caption + 3 stories on Manger Leuger or white-label. Full rights transfer option available."
+                >1 post carrousel en cross-post avec légende personnalisée + lot
+                de 3 stories sur Manger Leuger ou en marque blanche. Option
+                cession de droits totale disponible.</span
+              >
+            </p>
+            <a href="#contact" class="offer-cta">
+              <span data-fr="Parlons-en →" data-en="Get in touch →"
+                >Parlons-en →</span
+              >
+            </a>
+          </div>
+
+          <div class="offer-card">
+            <p class="offer-card-title">
+              <span
+                data-fr="VIDÉO VERTICALE + STORIES"
+                data-en="VERTICAL VIDEO + STORIES"
+                >VIDÉO VERTICALE + STORIES</span
+              >
+            </p>
+            <p class="offer-card-body">
+              <span
+                data-fr="1 vidéo verticale scénarisée avec vos mots-clés + lot de 3 stories sur Manger Leuger ou en marque blanche."
+                data-en="1 scripted vertical video with your keywords + 3 stories on Manger Leuger or white-label."
+                >1 vidéo verticale scénarisée avec vos mots-clés + lot de 3
+                stories sur Manger Leuger ou en marque blanche.</span
+              >
+            </p>
+            <a href="#contact" class="offer-cta">
+              <span data-fr="Parlons-en →" data-en="Get in touch →"
+                >Parlons-en →</span
+              >
+            </a>
+          </div>
+
+          <div class="offer-card">
+            <p class="offer-card-title">
+              <span data-fr="OFFRE PREMIUM" data-en="PREMIUM PACKAGE"
+                >OFFRE PREMIUM</span
+              >
+            </p>
+            <p class="offer-card-body">
+              <span
+                data-fr="Carrousel + vidéo verticale + shooting photo marque blanche (15–20 photos retouchées plats/ambiance/déco) + cession de droits totale + livraison pack complet HD."
+                data-en="Carousel + vertical video + white-label photo shoot (15–20 retouched food/ambiance/decor photos) + full rights transfer + complete HD delivery."
+                >Carrousel + vidéo verticale + shooting photo marque blanche
+                (15–20 photos retouchées plats/ambiance/déco) + cession de
+                droits totale + livraison pack complet HD.</span
+              >
+            </p>
+            <a href="#contact" class="offer-cta">
+              <span data-fr="Parlons-en →" data-en="Get in touch →"
+                >Parlons-en →</span
+              >
+            </a>
+          </div>
+        </div>
+
+        <p class="offer-closing">
+          <span
+            data-fr="Chaque projet est unique — échange contre hébergement ou prestation rémunérée, tout est possible. Écrivez-moi."
+            data-en="Every project is unique — content in exchange for accommodation, or paid work. Everything is open. Get in touch."
+            >Chaque projet est unique — échange contre hébergement ou prestation
+            rémunérée, tout est possible. Écrivez-moi.</span
+          >
+        </p>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee-strip" aria-hidden="true">
+      <div class="marquee-track">
+        <span
+          >Top Chef · Paris · Cambodge · Vietnam · Japon · Thaïlande · Taco
+          Messa · Cavalier Paris · Time Out Paris · Bruts Montmartre · Sapa ·
+          Bangkok · Tokyo · &nbsp;&nbsp;&nbsp;&nbsp;</span
+        >
+        <span
+          >Top Chef · Paris · Cambodge · Vietnam · Japon · Thaïlande · Taco
+          Messa · Cavalier Paris · Time Out Paris · Bruts Montmartre · Sapa ·
+          Bangkok · Tokyo · &nbsp;&nbsp;&nbsp;&nbsp;</span
+        >
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="contact-inner">
+        <h2 class="contact-heading contact-heading-el">
+          <span data-fr="Une idée ?" data-en="Got an idea?">Une idée ?</span>
+        </h2>
+        <p class="contact-body">
+          <span
+            data-fr="Je suis en mouvement constant — Asie, Europe, partout où il y a une bonne histoire à raconter. Restaurants, hôtels, bars, marques food, offices de tourisme — si vous avez un endroit à faire découvrir, écrivez-moi. Je réponds à toutes les propositions sérieuses."
+            data-en="I'm constantly on the move — Asia, Europe, wherever there's a good story. Restaurants, hotels, bars, food brands, tourist boards — if you have a place worth discovering, write to me. I respond to all serious proposals."
+            >Je suis en mouvement constant — Asie, Europe, partout où il y a une
+            bonne histoire à raconter. Restaurants, hôtels, bars, marques food,
+            offices de tourisme — si vous avez un endroit à faire découvrir,
+            écrivez-moi. Je réponds à toutes les propositions sérieuses.</span
+          >
+        </p>
+        <span class="contact-ethics">
+          <span
+            data-fr="Je ne travaille pas avec des établissements qui maltraitent leurs animaux ou leurs employés."
+            data-en="I don't work with venues that mistreat animals or their staff."
+            >Je ne travaille pas avec des établissements qui maltraitent leurs
+            animaux ou leurs employés.</span
+          >
+        </span>
+        <a href="mailto:claraleuger@gmail.com" class="contact-email"
+          >claraleuger@gmail.com</a
+        >
+        <div class="social-row">
+          <!-- Instagram -->
+          <a
+            class="social-link"
+            href="https://www.instagram.com/mangerleuger/"
+            target="_blank"
+            rel="noopener"
+            aria-label="Instagram @mangerleuger"
+          >
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <circle cx="12" cy="12" r="4.5" />
+              <circle cx="17.5" cy="6.5" r="1" fill="#e0281a" stroke="none" />
+            </svg>
+          </a>
+          <!-- TikTok -->
+          <a
+            class="social-link"
+            href="https://www.tiktok.com/@mangerleuger"
+            target="_blank"
+            rel="noopener"
+            aria-label="TikTok @mangerleuger"
+          >
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+            </svg>
+          </a>
+          <!-- WhatsApp -->
+          <a
+            class="social-link"
+            href="https://wa.me/"
+            target="_blank"
+            rel="noopener"
+            aria-label="WhatsApp"
+          >
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <span class="footer-copy">© 2026 Clara Leuger</span>
+      <img
+        src="assets/pics/logo.PNG"
+        alt="Manger Leuger"
+        class="footer-logo-img"
+      />
+    </footer>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+      gsap.registerPlugin(ScrollTrigger);
+
+      // ─── HERO STAGGER ───
+      var heroItems = gsap.utils.toArray(".gsap-hero-item");
+      gsap.fromTo(
+        heroItems,
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.9, stagger: 0.12, ease: "power3.out" },
+      );
+
+      // ─── SECTION HEADINGS ───
+      [
+        ".who-heading",
+        ".gallery-heading",
+        ".reels-heading",
+        ".create-heading",
+        ".collabs-heading",
+        ".how-heading",
+        ".contact-heading-el",
+      ].forEach(function (sel) {
+        var el = document.querySelector(sel);
+        if (el) {
+          gsap.from(el, {
+            scrollTrigger: { trigger: el, start: "top 85%" },
+            y: 25,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+          });
+        }
+      });
+
+      // ─── GALLERY FADE IN ───
+      var galleryColumns = document.querySelector("#gallery-columns");
+      if (galleryColumns) {
+        gsap.from(galleryColumns, {
+          scrollTrigger: { trigger: galleryColumns, start: "top 85%" },
+          y: 30,
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out",
+        });
+      }
+
+      // ─── REELS STAGGER ───
+      var reelsSection = document.querySelector("#reels-section");
+      if (reelsSection) {
+        gsap.from(reelsSection.querySelectorAll(".reel-col"), {
+          scrollTrigger: { trigger: reelsSection, start: "top 85%" },
+          y: 30,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power3.out",
+        });
+      }
+
+      // ─── WHAT I CREATE CARDS ───
+      var cardsGrid = document.querySelector("#cards-grid");
+      if (cardsGrid) {
+        gsap.from(cardsGrid.querySelectorAll(".card"), {
+          scrollTrigger: { trigger: cardsGrid, start: "top 85%" },
+          y: 25,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power3.out",
+        });
+      }
+
+      // ─── COLLAB CARDS ───
+      var collabsGrid = document.querySelector("#collabs-grid");
+      if (collabsGrid) {
+        gsap.from(collabsGrid.querySelectorAll(".collab-card"), {
+          scrollTrigger: { trigger: collabsGrid, start: "top 85%" },
+          y: 25,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power3.out",
+        });
+      }
+
+      // ─── OFFER CARDS ───
+      var offerCards = document.querySelector("#offer-cards");
+      if (offerCards) {
+        gsap.from(offerCards.querySelectorAll(".offer-card"), {
+          scrollTrigger: { trigger: offerCards, start: "top 85%" },
+          y: 25,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power3.out",
+        });
+      }
+
+      // ─── NAV SCROLL ───
+      var nav = document.getElementById("main-nav");
+      window.addEventListener("scroll", function () {
+        nav.classList.toggle("scrolled", window.scrollY > 80);
+      });
+
+      // ─── LANGUAGE TOGGLE ───
+      var currentLang = "fr";
+      var btnFr = document.getElementById("btn-fr");
+      var btnEn = document.getElementById("btn-en");
+
+      function setLanguage(lang) {
+        currentLang = lang;
+        document.querySelectorAll("[data-fr]").forEach(function (el) {
+          el.innerText = lang === "fr" ? el.dataset.fr : el.dataset.en;
+        });
+        if (lang === "fr") {
+          btnFr.classList.add("active");
+          btnEn.classList.remove("active");
+          document.documentElement.lang = "fr";
+        } else {
+          btnEn.classList.add("active");
+          btnFr.classList.remove("active");
+          document.documentElement.lang = "en";
+        }
+      }
+
+      btnFr.addEventListener("click", function () {
+        setLanguage("fr");
+      });
+      btnEn.addEventListener("click", function () {
+        setLanguage("en");
+      });
+
+      // ─── COUNT-UP ───
+      function easeOut(t) {
+        return 1 - Math.pow(1 - t, 3);
+      }
+
+      function runCountUp(el) {
+        var target = parseInt(el.dataset.target, 10);
+        var suffix = el.dataset.suffix;
+        var start = null;
+        var duration = 1500;
+        function step(timestamp) {
+          if (!start) start = timestamp;
+          var progress = Math.min((timestamp - start) / duration, 1);
+          var current = Math.floor(easeOut(progress) * target);
+          if (suffix.endsWith("k+")) {
+            el.textContent = Math.floor(current / 1000) + "k+";
+          } else if (suffix.endsWith("%")) {
+            el.textContent = current + "%";
+          } else {
+            el.textContent = current;
+          }
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            el.textContent = suffix;
+          }
+        }
+        requestAnimationFrame(step);
+      }
+
+      var countObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (
+              entry.isIntersecting &&
+              entry.target.dataset.counted === "false"
+            ) {
+              entry.target.dataset.counted = "true";
+              runCountUp(entry.target);
+            }
+          });
+        },
+        { threshold: 0.3 },
+      );
+
+      document
+        .querySelectorAll(".stat-number[data-target]")
+        .forEach(function (el) {
+          countObserver.observe(el);
+        });
+    </script>
+  </body>
+</html>
