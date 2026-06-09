@@ -836,7 +836,15 @@
 
     <!-- HERO -->
     <section class="hero">
-      <video class="hero-video" autoplay muted loop playsinline>
+      <video
+        class="hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        poster="assets/pics/IMG_1609.JPG"
+      >
         <source
           src="https://github.com/rightontech/manger-leuger/raw/main/assets/pics/countrysidepaireel.MOV"
         />
@@ -977,6 +985,7 @@
               src="assets/pics/IMG_4417.JPG"
               alt="Wat Arun illuminé au crépuscule sur le Chao Phraya, Bangkok"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="gallery-item">
@@ -984,6 +993,7 @@
               src="assets/pics/IMG_4652.JPG"
               alt="Chirashi don de fruits de mer sur plateau laqué, Japon"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="gallery-item">
@@ -991,6 +1001,7 @@
               src="assets/pics/IMG_3391.JPEG"
               alt="Pêcheur en barque au milieu des lotus, Cambodge"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="gallery-item">
@@ -998,6 +1009,7 @@
               src="assets/pics/IMG_1609.JPG"
               alt="Le Fuji-san au coucher de soleil derrière un Lawson, Japon"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="gallery-item">
@@ -1005,6 +1017,7 @@
               src="assets/pics/IMG_4194.JPG"
               alt="Som tam, salade de papaye épicée dans une gargote de Bangkok"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="gallery-item">
@@ -1012,6 +1025,7 @@
               src="assets/pics/IMG_3898.JPG"
               alt="Train rouge surgissant des montagnes brumeuses de Sapa, Vietnam"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="gallery-item">
@@ -1019,6 +1033,7 @@
               src="assets/pics/IMG_4207.JPG"
               alt="Mercedes vintage garée devant un stupa de temple, Bangkok"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="gallery-item">
@@ -1026,6 +1041,7 @@
               src="assets/pics/IMG_3531.JPG"
               alt="Moto chargée de sacs de poissons rouges dans une rue du Vietnam"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="gallery-item">
@@ -1033,6 +1049,7 @@
               src="assets/pics/IMG_3963.JPG"
               alt="Rizières en terrasses inondées sous la brume matinale, Sapa"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="gallery-item">
@@ -1040,6 +1057,7 @@
               src="assets/pics/IMG_5789.JPG"
               alt="Bungalow en bambou et toit de chaume, hébergement boutique en Asie"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="gallery-item">
@@ -1047,6 +1065,7 @@
               src="assets/pics/IMG_4506.JPG"
               alt="Cycliste passant devant un restaurant vintage à Shimokitazawa, Tokyo"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="gallery-item">
@@ -1054,6 +1073,7 @@
               src="assets/pics/IMG_3913.JPG"
               alt="Rizières en terrasses dorées au soleil couchant, Sapa Vietnam"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="gallery-item">
@@ -1061,6 +1081,7 @@
               src="assets/pics/IMG_4614.JPG"
               alt="Vue sur la mer depuis la fenêtre d'un train local japonais"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="gallery-item">
@@ -1068,6 +1089,7 @@
               src="assets/pics/IMG_5796.JPG"
               alt="Jardin tropical et bungalow en briques d'un hôtel boutique"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="gallery-item">
@@ -1075,6 +1097,7 @@
               src="assets/pics/IMG_4988.JPG"
               alt="Citrouille à pois de Yayoi Kusama face à la mer, Naoshima"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="gallery-item">
@@ -1082,6 +1105,7 @@
               src="assets/pics/IMG_5829.JPG"
               alt="Piscine en lagon d'un resort boutique entouré de montagnes"
               loading="lazy"
+              decoding="async"
             />
           </div>
         </div>
@@ -1751,6 +1775,33 @@
         .forEach(function (el) {
           countObserver.observe(el);
         });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const videos = document.querySelectorAll("video");
+        videos.forEach(function (video) {
+          video.muted = true;
+          video.play().catch(function () {});
+        });
+
+        const reelVideos = document.querySelectorAll(".reel-video");
+        const observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.muted = true;
+                entry.target.play().catch(function () {});
+              } else {
+                entry.target.pause();
+              }
+            });
+          },
+          { threshold: 0.3 },
+        );
+        reelVideos.forEach(function (v) {
+          observer.observe(v);
+        });
+      });
     </script>
   </body>
 </html>
