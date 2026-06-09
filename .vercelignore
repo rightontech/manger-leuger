@@ -1,4 +1,6 @@
+# Original uncompressed videos (served via *-compressed.mp4)
 assets/pics/*.MP4
 assets/pics/*.MOV
-assets/pics/*.mp4
-assets/pics/*.mov
+# Original full-size images (served via *-web.jpg)
+assets/pics/IMG_*.JPG
+assets/pics/IMG_*.JPEG
