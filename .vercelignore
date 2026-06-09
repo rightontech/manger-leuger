@@ -1,6 +1,5 @@
-# Original uncompressed videos (served via *-compressed.mp4)
-assets/pics/*.MP4
-assets/pics/*.MOV
-# Original full-size images (served via *-web.jpg)
-assets/pics/IMG_*.JPG
-assets/pics/IMG_*.JPEG
+# Original uncompressed videos — replaced by *-compressed.mp4
+assets/pics/camodiareel.MP4
+assets/pics/countrysidepaireel.MOV
+assets/pics/parisreel.MP4
+assets/pics/sapareel.MP4
