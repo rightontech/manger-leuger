@@ -376,17 +376,24 @@
       }
 
       @media (max-width: 768px) {
-        .reel-mobile-hide {
-          display: none;
+        .reel-video-wrap {
+          max-height: 300px;
         }
+      }
+
+      .reel-video-wrap {
+        position: relative;
+        overflow: hidden;
+        background: #111;
+        border-radius: 8px;
+        aspect-ratio: 9 / 16;
+        max-height: 420px;
       }
 
       .reel-video {
         width: 100%;
-        aspect-ratio: 9 / 16;
+        height: 100%;
         object-fit: cover;
-        border-radius: 8px;
-        max-height: 420px;
         display: block;
       }
 
@@ -867,29 +874,16 @@
           margin-bottom: 2rem;
         }
 
-        /* Reels: hide video, show static poster */
-        .reel-video {
+        /* Reels: videos visible on mobile, static fallback hidden */
+        .reel-mobile-img {
           display: none;
         }
-        .reel-mobile-img {
-          display: block;
-          width: 100%;
-          aspect-ratio: 9 / 16;
-          object-fit: cover;
-          border-radius: 8px;
-          max-height: 420px;
-        }
 
-        /* Reel overlay always visible on mobile (acts as play button) */
-        .reel-overlay {
-          opacity: 1;
-          height: 52px;
-          background: rgba(0, 0, 0, 0.55);
-        }
-
-        /* Reels grid full width on mobile */
+        /* Reels grid: single column, full width */
         .reels-grid {
+          grid-template-columns: 1fr;
           max-width: 100%;
+          margin: 0 auto;
         }
 
         /* Nav */
@@ -971,9 +965,7 @@
         preload="auto"
         poster="assets/pics/IMG_1609-web.jpg"
       >
-        <source
-          src="assets/pics/countryside-compressed.mp4"
-        />
+        <source src="assets/pics/countryside-compressed.mp4" />
       </video>
       <div class="hero-overlay"></div>
       <div class="hero-inner">
@@ -1253,12 +1245,22 @@
               class="reel-link"
               aria-label="Voir sur Instagram"
             >
-              <video autoplay muted loop playsinline class="reel-video">
-                <source
-                  src="assets/pics/cambo-compressed.mp4"
-                  type="video/mp4"
-                />
-              </video>
+              <div class="reel-video-wrap">
+                <video
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  webkit-playsinline
+                  preload="auto"
+                  class="reel-video"
+                >
+                  <source
+                    src="assets/pics/cambo-compressed.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
               <img
                 class="reel-mobile-img"
                 src="assets/pics/IMG_3531-web.jpg"
@@ -1292,7 +1294,7 @@
               <span data-fr="Cambodge" data-en="Cambodia">Cambodge</span>
             </p>
           </div>
-          <div class="reel-col reel-mobile-hide">
+          <div class="reel-col">
             <a
               href="https://www.instagram.com/mangerleuger/"
               target="_blank"
@@ -1300,12 +1302,22 @@
               class="reel-link"
               aria-label="Voir sur Instagram"
             >
-              <video autoplay muted loop playsinline class="reel-video">
-                <source
-                  src="assets/pics/sapa-compressed.mp4"
-                  type="video/mp4"
-                />
-              </video>
+              <div class="reel-video-wrap">
+                <video
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  webkit-playsinline
+                  preload="auto"
+                  class="reel-video"
+                >
+                  <source
+                    src="assets/pics/sapa-compressed.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
               <img
                 class="reel-mobile-img"
                 src="assets/pics/IMG_3391-web.jpg"
@@ -1339,7 +1351,7 @@
               <span data-fr="Vietnam" data-en="Vietnam">Vietnam</span>
             </p>
           </div>
-          <div class="reel-col reel-mobile-hide">
+          <div class="reel-col">
             <a
               href="https://www.instagram.com/mangerleuger/"
               target="_blank"
@@ -1347,12 +1359,22 @@
               class="reel-link"
               aria-label="Voir sur Instagram"
             >
-              <video autoplay muted loop playsinline class="reel-video">
-                <source
-                  src="assets/pics/paris-compressed.mp4"
-                  type="video/mp4"
-                />
-              </video>
+              <div class="reel-video-wrap">
+                <video
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  webkit-playsinline
+                  preload="auto"
+                  class="reel-video"
+                >
+                  <source
+                    src="assets/pics/paris-compressed.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
               <img
                 class="reel-mobile-img"
                 src="assets/pics/IMG_4417-web.jpg"
@@ -1918,31 +1940,45 @@
         });
     </script>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const videos = document.querySelectorAll("video");
-        videos.forEach(function (video) {
-          video.muted = true;
-          video.play().catch(function () {});
-        });
+      var reelEls = document.querySelectorAll(".reel-video");
 
-        const reelVideos = document.querySelectorAll(".reel-video");
-        const observer = new IntersectionObserver(
-          function (entries) {
-            entries.forEach(function (entry) {
-              if (entry.isIntersecting) {
-                entry.target.muted = true;
-                entry.target.play().catch(function () {});
-              } else {
-                entry.target.pause();
+      var reelObs = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            var v = entry.target;
+            v.muted = true;
+            if (entry.isIntersecting) {
+              var p = v.play();
+              if (p !== undefined) {
+                p.catch(function () {
+                  v.load();
+                  v.play().catch(function () {});
+                });
               }
-            });
-          },
-          { threshold: 0.3 },
-        );
-        reelVideos.forEach(function (v) {
-          observer.observe(v);
-        });
+            } else {
+              v.pause();
+            }
+          });
+        },
+        { threshold: 0.2 },
+      );
+
+      reelEls.forEach(function (v) {
+        v.muted = true;
+        v.load();
+        reelObs.observe(v);
       });
+
+      document.addEventListener(
+        "touchstart",
+        function () {
+          reelEls.forEach(function (v) {
+            v.muted = true;
+            v.play().catch(function () {});
+          });
+        },
+        { once: true },
+      );
     </script>
   </body>
 </html>
