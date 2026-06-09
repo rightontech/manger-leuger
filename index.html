@@ -375,7 +375,7 @@
         gap: 0.75rem;
       }
 
-      @media (max-width: 375px) {
+      @media (max-width: 768px) {
         .reel-mobile-hide {
           display: none;
         }
@@ -813,6 +813,132 @@
         width: auto;
         display: block;
       }
+
+      /* ─── MOBILE ─── */
+      html {
+        overflow-x: hidden;
+      }
+
+      .reel-mobile-img {
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        /* Hero: hide video, show static photo background */
+        .hero-video {
+          display: none;
+        }
+        .hero {
+          background-image: url("assets/pics/IMG_1609.JPG");
+          background-size: cover;
+          background-position: center;
+          padding: 7rem 1.5rem 4rem;
+        }
+
+        /* Hero text */
+        .hero-name {
+          font-size: 52px;
+        }
+        .hero-cta {
+          align-self: stretch;
+          text-align: center;
+          min-height: 44px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        /* Sections */
+        section {
+          padding: 3rem 1.5rem;
+        }
+        .gallery-section,
+        .collabs-section,
+        .reels-section {
+          padding: 3rem 1.5rem;
+        }
+        #contact {
+          padding: 4rem 1.5rem;
+        }
+
+        /* Section headings */
+        .section-heading {
+          font-size: 44px;
+          margin-bottom: 2rem;
+        }
+
+        /* Reels: hide video, show static poster */
+        .reel-video {
+          display: none;
+        }
+        .reel-mobile-img {
+          display: block;
+          width: 100%;
+          aspect-ratio: 9 / 16;
+          object-fit: cover;
+          border-radius: 8px;
+          max-height: 420px;
+        }
+
+        /* Reel overlay always visible on mobile (acts as play button) */
+        .reel-overlay {
+          opacity: 1;
+          height: 52px;
+          background: rgba(0, 0, 0, 0.55);
+        }
+
+        /* Reels grid full width on mobile */
+        .reels-grid {
+          max-width: 100%;
+        }
+
+        /* Nav */
+        #main-nav {
+          padding: 1rem 1.25rem;
+        }
+        .nav-logo-img {
+          height: 30px;
+        }
+
+        /* Touch targets */
+        .lang-btn {
+          min-height: 44px;
+          min-width: 44px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .offer-cta {
+          align-self: stretch;
+          text-align: center;
+          min-height: 44px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .social-link {
+          min-height: 44px;
+          min-width: 44px;
+        }
+
+        /* Contact email */
+        .contact-email {
+          word-break: break-all;
+          font-size: 17px;
+        }
+      }
+
+      @media (max-width: 375px) {
+        .hero-name {
+          font-size: 44px;
+        }
+        .section-heading {
+          font-size: 36px;
+        }
+        #main-nav {
+          padding: 0.875rem 1rem;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1133,6 +1259,11 @@
                   type="video/mp4"
                 />
               </video>
+              <img
+                class="reel-mobile-img"
+                src="assets/pics/IMG_3531.JPG"
+                alt="Cambodge"
+              />
               <div class="reel-overlay">
                 <svg
                   width="14"
@@ -1175,6 +1306,11 @@
                   type="video/mp4"
                 />
               </video>
+              <img
+                class="reel-mobile-img"
+                src="assets/pics/IMG_3391.JPEG"
+                alt="Vietnam"
+              />
               <div class="reel-overlay">
                 <svg
                   width="14"
@@ -1217,6 +1353,11 @@
                   type="video/mp4"
                 />
               </video>
+              <img
+                class="reel-mobile-img"
+                src="assets/pics/IMG_4417.JPG"
+                alt="Paris"
+              />
               <div class="reel-overlay">
                 <svg
                   width="14"
